@@ -1,6 +1,5 @@
 package co.nz.leonhardt.bpe;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,10 +18,11 @@ import com.google.common.collect.Multimap;
 import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.logs.CaseLog;
 import co.nz.leonhardt.bpe.logs.EventLog;
-import co.nz.leonhardt.sim.common.BusinessCase;
 
 /**
  * Collects all completed traces and partial traces.
+ * 
+ * Provides methods to export the logs into XES format.
  * 
  * @author freddy
  *
@@ -90,11 +90,11 @@ public class EventRepository {
 	 * 
 	 * @param bCase
 	 */
-	public void endTrace(BusinessCase bCase) {
-		String caseUuid = bCase.getUuid();
+	public void endTrace(String caseUuid) {
+		//String caseUuid = bCase.getUuid();
 		
 		// add artificial end event
-		List<EventLog> caseEvents = (ArrayList<EventLog>) events.get(caseUuid);
+		List<EventLog> caseEvents = (List<EventLog>) events.get(caseUuid);
 		EventLog lastEvent = caseEvents.get(caseEvents.size()-1);
 		
 		EventLog artificialEndEvent = new EventLog(lastEvent.getTimestamp());

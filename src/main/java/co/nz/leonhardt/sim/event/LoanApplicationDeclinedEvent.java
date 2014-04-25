@@ -29,6 +29,7 @@ public class LoanApplicationDeclinedEvent extends BusinessEvent<LoanApplication>
 		
 		// send business event
 		fireEventLog(who, "A_DECLINED", StandardModel.COMPLETE, resource);
+		closeCase(who);
 		
 		model.applicationQueue.remove(who);
 		

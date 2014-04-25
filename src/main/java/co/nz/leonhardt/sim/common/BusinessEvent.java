@@ -75,6 +75,16 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 		sendTrace(log);
 	}
 	
+	/**
+	 * Closes and finalizes the given business case.
+	 * No further events should be added after this has happened.
+	 * 
+	 * @param bCase
+	 */
+	protected void closeCase(BusinessCase bCase) {
+		EventRepository.getInstance().endTrace(bCase.getUuid());
+	}
+	
 	private void sendTrace(EventLog log) {
 		String traceNote = String.format("sends business event '%s' (%s).", log.getConceptName(), log.getLifecycleTransition());
 		sendTraceNote(traceNote);

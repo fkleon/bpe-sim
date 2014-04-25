@@ -10,8 +10,6 @@ import org.deckfour.xes.factory.XFactoryBufferedImpl;
 import org.deckfour.xes.model.XAttribute;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.sim.common.BusinessCase;
-
 /**
  * Represents an case in the context of a Process Log.
  * 
@@ -49,18 +47,6 @@ public class CaseLog {
 	public CaseLog(final Date timestamp) {//final Long relTimestamp) {
 		this.caseUuid = UUID.randomUUID().toString();
 		this.timestamp = timestamp;
-	}
-	
-	/**
-	 * Creates a new case log from the given business case.
-	 * 
-	 * Copies uuid and timestamp.
-	 * 
-	 * @param businessCase
-	 */
-	public CaseLog(final BusinessCase businessCase) {
-		this.caseUuid = businessCase.getUuid();
-		this.timestamp = businessCase.getStartDate();
 	}
 
 	public String getCaseUuid() {

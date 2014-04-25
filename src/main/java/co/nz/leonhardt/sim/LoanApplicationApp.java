@@ -57,7 +57,7 @@ public class LoanApplicationApp {
 		exp.report();
 		exp.finish();
 		
-		exportLogs("/home/freddy/simLog.xes");
+		exportLogs("simLog.xes");
 	}
 	
 	public static void exportLogs(String path) {

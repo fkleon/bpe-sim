@@ -62,7 +62,7 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 	 * @param la
 	 */
 	protected void fireCaseLog(LoanApplication la) {
-		CaseLog caseLog = new CaseLog(la);
+		CaseLog caseLog = new CaseLog(la.getUuid(), la.getStartDate());
 		caseLog.setAmountRequested(la.getAmountRequested());
 		
 		EventRepository.getInstance().startTrace(caseLog);
