@@ -1,0 +1,34 @@
+package co.nz.leonhardt.util;
+
+import java.io.File;
+import java.io.InputStream;
+
+import org.deckfour.xes.in.XParser;
+import org.deckfour.xes.in.XesXmlParser;
+import org.deckfour.xes.model.XLog;
+
+/**
+ * Xes Helper.
+ * 
+ * @author freddy
+ *
+ */
+public class XesUtil {
+
+	private static XParser xParser = new XesXmlParser();
+	
+	public static XLog parseFrom(File f) throws Exception {
+		return xParser.parse(f).get(0);
+	}
+	
+	public static XLog parseFrom(InputStream is) throws Exception {
+		return xParser.parse(is).get(0);
+	}
+	
+	public static XLog parseFrom(String resource) throws Exception {
+		InputStream is = XesUtil.class.getResourceAsStream(resource);
+		return parseFrom(is);
+
+	}
+	
+}
