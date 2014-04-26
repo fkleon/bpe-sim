@@ -1,14 +1,26 @@
 package co.nz.leonhardt.bpe.reco;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JFrame;
+
+import jsat.DataSet;
+import jsat.SimpleDataSet;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
+import jsat.classifiers.Classifier;
 import jsat.classifiers.DataPoint;
-import jsat.datatransform.DataTransformProcess;
-import jsat.datatransform.PolynomialTransform;
+import jsat.datatransform.DataModelPipeline;
+import jsat.datatransform.DataTransform;
+import jsat.datatransform.DataTransformFactory;
+import jsat.datatransform.PCA;
+import jsat.datatransform.ZeroMeanTransform;
+import jsat.graphing.CategoryPlot;
+import jsat.graphing.ClassificationPlot;
+import jsat.graphing.ParallelCoordinatesPlot;
 import jsat.regression.LogisticRegression;
 
 import org.deckfour.xes.model.XLog;
@@ -30,33 +42,65 @@ import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
  *
  */
 public class OutcomeClassifier implements PredictionService<Outcome> {
+	
+	/** The factory to create data points (for learning). */
+	private final DataPointFactory learnDPF;
 
-	private final LogisticRegression lr;
+	/** The factory to create data points (for predicting). */
+	private final DataPointFactory predictDPF;
 
-	private final DataPointFactory dpf;
-		
-	private final DataTransformProcess dtp;
+	/** The pipeline: Regressor and all transformations. */
+	private final DataModelPipeline dmp;
 
 	/**
 	 * Creates a new Outcome classifier.
 	 */
 	public OutcomeClassifier() {
-		lr = new LogisticRegression();
-		
-		dpf = DataPointFactory.create()
+		/*
+		 * LEARN
+		 * First variable should be target variable.
+		 * 
+		 */
+		// Features to extract
+		learnDPF = DataPointFactory.create()
 				.withNumerics(
-					//new BiasMetricExtractor(),
 					new TraceLengthExtractor(),
 					new RandomMetricExtractor(),
 					new AmountRequestedExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES))
 				.withCategories(
-					new OutcomeExtractor());
+					new OutcomeExtractor()); // Target variable first!
 		
-		dtp = new DataTransformProcess(
-				//new StandardizeTransform.StandardizeTransformFactory(),
-				new PolynomialTransform.PolyTransformFactory(3));
+		/*
+		 * CLASSIFY
+		 * Must not contain target variable!
+		 * 
+		 */
+		predictDPF = DataPointFactory.create()
+				.withNumerics(
+					new TraceLengthExtractor(),
+					new RandomMetricExtractor(),
+					new AmountRequestedExtractor(),
+					new CycleTimeExtractor(TimeUnit.MINUTES));
+				//.withCategories(
+				//	new OutcomeExtractor()); // TODO check
+		
+		/*
+		 * Data Pipeline
+		 */
+		
+		// Regressor to use
+		Classifier baseClassifier = new LogisticRegression();
+		
+		// Transformations to do
+		DataTransformFactory[] factories = new DataTransformFactory[] {
+				//new UnitVarianceTransform.UnitVarianceTransformFactory(),
+				//new PNormNormalization.PNormNormalizationFactory(2.0),
+				//new PolynomialTransform.PolyTransformFactory(3),
+				//new StandardizeTransform.StandardizeTransformFactory()
+		};
 
+		dmp = new DataModelPipeline(baseClassifier, factories);
 	}
 
 	@Override
@@ -64,34 +108,87 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 		List<DataPoint> data = new ArrayList<>(logs.size());
 		
 		for(XTrace trace: logs) {
-			DataPoint dp = dpf.extractDataPoint(trace);
+			DataPoint dp = learnDPF.extractDataPoint(trace);
 			data.add(dp);
-			//System.out.println(dp);
 		}
 		
 		ClassificationDataSet dataSet = new ClassificationDataSet(data, 0);
-
-		// apply transformations
-		//dtp.learnApplyTransforms(dataSet);
-
-		lr.trainC(dataSet);
+		dmp.trainC(dataSet);
 		
-		System.out.println("learned coefficents: " + lr.getCoefficents());
-		System.out.println("bias: " + lr.getBias());
+		visualizeCategories(dataSet);
 	}
 
 	@Override
 	public Outcome predict(XTrace partialTrace) {
-		DataPoint dp = dpf.extractDataPoint(partialTrace);
+		DataPoint dp = learnDPF.extractDataPoint(partialTrace);
 		
-		// apply transformations
-		//dp = dtp.transform(dp);
+		/*
+		List<DataPoint> dps = new ArrayList<>();
+		dps.add(dp);
+		ClassificationDataSet cDataSet = new ClassificationDataSet(new SimpleDataSet(dps), 0);
+		visualizeClassification(cDataSet, dmp);
+		*/
 		
-		CategoricalResults cr = lr.classify(dp);
+		CategoricalResults cr = dmp.classify(dp);
+		
 		int ml = cr.mostLikely();
 		
 		System.out.println("Prediction: " + Outcome.fromInt(ml) + " (probability: " + cr.getProb(ml) + ")");
 		
 		return Outcome.fromInt(ml);
+	}
+	
+	private void visualizeCategories(ClassificationDataSet cDataSet) {
+		//PCA needs the data samples to have a mean of ZERO, so we need a transform to ensue this property as well
+        DataTransform zeroMean = new ZeroMeanTransform(cDataSet);
+        cDataSet.applyTransform(zeroMean);
+        
+        //PCA is a transform that attempts to reduce the dimensionality while maintaining all the variance in the data. 
+        //PCA also allows us to specify the exact number of dimensions we would like 
+        DataTransform pca = new PCA(cDataSet, 2);
+        
+        //We can now apply the transformations to our data set
+        cDataSet.applyTransform(pca);
+        
+        CategoryPlot plot = new CategoryPlot(cDataSet);
+	        
+	     JFrame jFrame = new JFrame("2D Visualization");
+	     jFrame.add(plot);
+	     jFrame.setSize(400, 400);
+	     jFrame.setVisible(true); 
+	     jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	     try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void visualizeClassification(ClassificationDataSet cDataSet, Classifier cl) {
+		//PCA needs the data samples to have a mean of ZERO, so we need a transform to ensue this property as well
+        DataTransform zeroMean = new ZeroMeanTransform(cDataSet);
+        cDataSet.applyTransform(zeroMean);
+        
+        //PCA is a transform that attempts to reduce the dimensionality while maintaining all the variance in the data. 
+        //PCA also allows us to specify the exact number of dimensions we would like 
+        DataTransform pca = new PCA(cDataSet, 2);
+        
+        //We can now apply the transformations to our data set
+        cDataSet.applyTransform(pca);
+        
+        CategoryPlot plot = new ClassificationPlot(cDataSet, cl);
+	        
+	     JFrame jFrame = new JFrame("2D Visualization");
+	     jFrame.add(plot);
+	     jFrame.setSize(400, 400);
+	     jFrame.setVisible(true); 
+	     jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	     try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -22,7 +22,7 @@ public class CycleTimeExtractor implements NumericalMetricExtractor<Long> {
 	
 	/**
 	 * Creates a new cycle time extractor which returns the cycle
-	 * time of a trace in the givne time unit.
+	 * time of a trace in the given time unit.
 	 * 
 	 * @param timeUnit
 	 */

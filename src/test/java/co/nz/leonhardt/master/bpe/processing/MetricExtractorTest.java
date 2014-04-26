@@ -1,6 +1,5 @@
 package co.nz.leonhardt.master.bpe.processing;
 
-
 import java.util.concurrent.TimeUnit;
 
 import org.deckfour.xes.model.XLog;
@@ -14,7 +13,6 @@ import org.junit.Test;
 
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
-import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.util.XesUtil;
 
 /**
@@ -75,17 +73,5 @@ public class MetricExtractorTest {
 		double amount = arEx.extractMetric(testTrace);
 
 		Assert.assertEquals(expectedAmount, amount, 0.0);
-	}
-	
-	@Test
-	//TODO
-	public void testOutcomeExtractor() {
-		String expectedOutcome = null;
-		
-		// test extract amount
-		OutcomeExtractor oEx = new OutcomeExtractor();
-		//String outcome = arEx.extractMetric(testTrace);
-
-		//Assert.assertEquals(expectedOutcome, outcome);
 	}
 }

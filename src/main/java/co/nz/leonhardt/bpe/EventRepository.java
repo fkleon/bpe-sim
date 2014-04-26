@@ -65,7 +65,7 @@ public class EventRepository {
 	 * @param e
 	 */
 	public void addEvent(final String caseUuid, final EventLog e) {
-		System.out.println(e);
+		//System.out.println(e);
 		if(!events.containsKey(caseUuid)) {
 			System.out.println("There is no case with this ID yet: " + caseUuid);
 		}
@@ -179,6 +179,9 @@ public class EventRepository {
 	 * @return
 	 */
 	public XLog export() {
+		String logLine = String.format("Exporting %d cases with %d events..", events.keySet().size(), events.size());
+		System.out.println(logLine);
+		
 		XFactory xFac = new XFactoryBufferedImpl();
 		XLog log = xFac.createLog();
 		

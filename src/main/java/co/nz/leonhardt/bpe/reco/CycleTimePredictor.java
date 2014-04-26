@@ -6,11 +6,15 @@ import java.util.concurrent.TimeUnit;
 
 import jsat.DataSet;
 import jsat.classifiers.DataPoint;
-import jsat.datatransform.DataTransformProcess;
+import jsat.datatransform.DataModelPipeline;
+import jsat.datatransform.DataTransformFactory;
+import jsat.datatransform.PNormNormalization;
 import jsat.datatransform.PolynomialTransform;
 import jsat.datatransform.StandardizeTransform;
+import jsat.datatransform.UnitVarianceTransform;
 import jsat.regression.LogisticRegression;
 import jsat.regression.RegressionDataSet;
+import jsat.regression.Regressor;
 
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
@@ -29,24 +33,27 @@ import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
  *
  */
 public class CycleTimePredictor implements PredictionService<Double> {
+	
+	/** The factory to create data points (for learning). */
+	private final DataPointFactory learnDPF;
 
-	//private final EventProcessor ep;
-	
-	private final LogisticRegression lr;
-	
-	/** The factory to create data points. */
-	private final DataPointFactory dpf;
-	
-	private final DataTransformProcess dtp;
+	/** The factory to create data points (for predicting). */
+	private final DataPointFactory predictDPF;
+
+	/** The pipeline: Regressor and all transformations. */
+	private final DataModelPipeline dmp;
 	
 	/**
 	 * Creates a new cycle time predictor.
 	 */
 	public CycleTimePredictor() {
-		//ep = new EventProcessor();
-		lr = new LogisticRegression();
-		
-		dpf = DataPointFactory.create()
+		/*
+		 * LEARN
+		 * First variable should be target variable.
+		 * 
+		 */
+		// Features to extract
+		learnDPF = DataPointFactory.create()
 				.withNumerics(
 					//new BiasMetricExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES), // Target variable first!
@@ -55,9 +62,34 @@ public class CycleTimePredictor implements PredictionService<Double> {
 				.withCategories(
 					new OutcomeExtractor());
 		
-		dtp = new DataTransformProcess(
-				//new StandardizeTransform.StandardizeTransformFactory(),
-				new PolynomialTransform.PolyTransformFactory(2));
+		/*
+		 * REGRESS
+		 * Must not contain target variable!
+		 * 
+		 */
+		predictDPF = DataPointFactory.create()
+				.withNumerics(
+						new TraceLengthExtractor(), 
+						new AmountRequestedExtractor())
+					.withCategories(
+						new OutcomeExtractor());
+		
+		/*
+		 * Data Pipeline
+		 */
+		
+		// Regressor to use
+		Regressor baseRegressor = new LogisticRegression();
+		
+		// Transformations to do
+		DataTransformFactory[] factories = new DataTransformFactory[] {
+				//new UnitVarianceTransform.UnitVarianceTransformFactory(),
+				//new PNormNormalization.PNormNormalizationFactory(2.0),
+				//new PolynomialTransform.PolyTransformFactory(2),
+				//new StandardizeTransform.StandardizeTransformFactory()
+		};
+
+		dmp = new DataModelPipeline(baseRegressor, factories);
 	}
 	
 	@Override
@@ -67,7 +99,7 @@ public class CycleTimePredictor implements PredictionService<Double> {
 		//PolynomialTransform trans = new PolynomialTransform(1);
 
 		for(XTrace trace: logs) {
-			DataPoint dp = dpf.extractDataPoint(trace);
+			DataPoint dp = learnDPF.extractDataPoint(trace);
 			data.add(dp);
 		}
 		
@@ -76,39 +108,23 @@ public class CycleTimePredictor implements PredictionService<Double> {
 		
 		// apply transformations
 		//dtp.learnApplyTransforms(dataSet);
-		//printSet(dataSet);
+		printSet(dataSet);
 		
-		lr.train(dataSet);
+		dmp.train(dataSet);
 		
-		System.out.println("learned coefficents: " + lr.getCoefficents());
-		System.out.println("bias: " + lr.getBias());
+		//lr.train(dataSet);
+		
+		//System.out.println("learned coefficients: " + lr.getCoefficents());
+		//System.out.println("bias: " + lr.getBias());
 	}
 	
-	@Deprecated
-	private void poly(DataSet dataSet) {
-		PolynomialTransform pf = new PolynomialTransform(3);
-		dataSet.applyTransform(pf);
-		
-		printSet(dataSet);
-	}
-
-	@Deprecated
-	private void standardize(DataSet dataSet) {
-		StandardizeTransform st = new StandardizeTransform(dataSet);
-		System.out.println("num num vars: "+ dataSet.getNumNumericalVars());
-		dataSet.applyTransform(st);
-		
-		printSet(dataSet);
-	}
 	
 	@Override
 	public Double predict(XTrace partialTrace) {
-		DataPoint dp = dpf.extractDataPoint(partialTrace);
+		// The data point must not contain the target value!
+		DataPoint dp = predictDPF.extractDataPoint(partialTrace);
 		
-		// apply transformations
-		//dp = dtp.transform(dp);
-		
-		return lr.regress(dp);
+		return dmp.regress(dp);
 	}
 	
 	private void printSet(DataSet dataSet) {
