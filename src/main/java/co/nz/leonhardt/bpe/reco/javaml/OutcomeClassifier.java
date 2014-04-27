@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import net.sf.javaml.classification.Classifier;
 import net.sf.javaml.classification.KNearestNeighbors;
 import net.sf.javaml.classification.evaluation.CrossValidation;
-import net.sf.javaml.classification.evaluation.EvaluateDataset;
 import net.sf.javaml.classification.evaluation.PerformanceMeasure;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.Instance;
@@ -31,7 +30,7 @@ import co.nz.leonhardt.bpe.reco.PredictionService;
  * @author freddy
  *
  */
-public class OutcomeClassifier2 implements PredictionService<Outcome> {
+public class OutcomeClassifier implements PredictionService<Outcome> {
 	
 	/** The factory to create data points (for learning). */
 	private final DataExtractionFactory<Instance,Dataset> learnIF;
@@ -41,7 +40,7 @@ public class OutcomeClassifier2 implements PredictionService<Outcome> {
 	/**
 	 * Creates a new Outcome classifier.
 	 */
-	public OutcomeClassifier2() {
+	public OutcomeClassifier() {
 		/*
 		 * LEARN
 		 * First variable should be target variable.
