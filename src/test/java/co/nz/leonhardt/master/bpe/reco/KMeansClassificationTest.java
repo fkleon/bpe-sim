@@ -1,6 +1,5 @@
 package co.nz.leonhardt.master.bpe.reco;
 
-import java.util.concurrent.TimeUnit;
 
 import org.deckfour.xes.model.XLog;
 import org.junit.Assert;
@@ -9,25 +8,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import co.nz.leonhardt.bpe.categories.Outcome;
-import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.reco.PredictionService;
-import co.nz.leonhardt.bpe.reco.jsat.CycleTimePredictor;
-import co.nz.leonhardt.bpe.reco.jsat.OutcomeClassifier;
+import co.nz.leonhardt.bpe.reco.javaml.OutcomeClassifier2;
 import co.nz.leonhardt.util.XesUtil;
 
 /**
- * Tests the regression-based recommender.
+ * Tests the kmeans-based recommender.
  * 
  * @author freddy
  *
  */
-public class LogisticRegressionPredictionTest {
+public class KMeansClassificationTest {
 	private static XLog learnLog;
 	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		learnLog = XesUtil.parseFrom("/logs/regression_test_log.xes");
+		learnLog = XesUtil.parseFrom("/logs/simLog.xes");
 	}
 	
 	@Before
@@ -35,27 +32,10 @@ public class LogisticRegressionPredictionTest {
 		Assert.assertNotNull(learnLog);
 	}
 	
-	@Test
-	public void testRegressionPrediction() {
-		PredictionService<Double> ps = new CycleTimePredictor();
-		CycleTimeExtractor cte = new CycleTimeExtractor(TimeUnit.MINUTES);
-		
-		ps.learn(learnLog);
-		
-		Long realTime = cte.extractMetric(learnLog.get(0));
-		Double predictedTime = ps.predict(learnLog.get(0));
-		Assert.assertNotNull(predictedTime);
-		System.out.println("Predicted: " + predictedTime + ", Truth: " + realTime);
-		
-		realTime = cte.extractMetric(learnLog.get(2));
-		predictedTime = ps.predict(learnLog.get(2));
-		Assert.assertNotNull(predictedTime);
-		System.out.println("Predicted: " + predictedTime + ", Truth: " + realTime);
-	}
 	
 	@Test
-	public void testRegressionClassification() {
-		PredictionService<Outcome> ps = new OutcomeClassifier();
+	public void testClassification() {
+		PredictionService<Outcome> ps = new OutcomeClassifier2();
 		OutcomeExtractor oe = new OutcomeExtractor();
 		
 		ps.learn(learnLog);
@@ -72,5 +52,13 @@ public class LogisticRegressionPredictionTest {
 		Assert.assertNotNull(predictedOutcome);
 		Assert.assertEquals(trueOutcome, predictedOutcome);
 		System.out.println("Predicted: " + predictedOutcome + ", Truth: " + trueOutcome);
+	}
+	
+	@Test
+	public void testCrossValidation() {
+		PredictionService<Outcome> ps = new OutcomeClassifier2();
+		
+		//ps.learn(learnLog);
+		ps.crossValidate(learnLog);
 	}
 }

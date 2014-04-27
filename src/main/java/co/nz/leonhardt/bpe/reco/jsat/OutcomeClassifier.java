@@ -1,9 +1,8 @@
-package co.nz.leonhardt.bpe.reco;
+package co.nz.leonhardt.bpe.reco.jsat;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import jsat.DataSet;
 import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
 import jsat.classifiers.Classifier;
@@ -21,6 +20,8 @@ import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.RandomMetricExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
+import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
+import co.nz.leonhardt.bpe.reco.PredictionService;
 
 /**
  * Classifier for outcome.
@@ -33,13 +34,13 @@ import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
 public class OutcomeClassifier implements PredictionService<Outcome> {
 	
 	/** The factory to create data points (for learning). */
-	private final DataPointFactory learnDPF;
+	protected final DataExtractionFactory<DataPoint, DataSet> learnDPF;
 
 	/** The factory to create data points (for predicting). */
-	private final DataPointFactory predictDPF;
+	protected final DataExtractionFactory<DataPoint, DataSet> predictDPF;
 
 	/** The pipeline: Regressor and all transformations. */
-	private final DataModelPipeline dmp;
+	protected final DataModelPipeline dmp;
 
 	/**
 	 * Creates a new Outcome classifier.
@@ -51,7 +52,7 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 		 * 
 		 */
 		// Features to extract
-		learnDPF = DataPointFactory.create()
+		learnDPF = JSATFactory.create()
 				.withNumerics(
 					new TraceLengthExtractor(),
 					new RandomMetricExtractor(),
@@ -66,7 +67,7 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 		 * TODO: check, actually for a classifier this should be OK
 		 * 
 		 */
-		predictDPF = DataPointFactory.create()
+		predictDPF = JSATFactory.create()
 				.withNumerics(
 					new TraceLengthExtractor(),
 					new RandomMetricExtractor(),
@@ -94,14 +95,8 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 	}
 
 	@Override
-	public void learn(XLog logs) {
-		List<DataPoint> data = new ArrayList<>(logs.size());
-		
-		for(XTrace trace: logs) {
-			DataPoint dp = learnDPF.extractDataPoint(trace);
-			data.add(dp);
-		}
-		
+	public void learn(XLog log) {
+		DataSet data = learnDPF.extractDataSet(log);
 		ClassificationDataSet dataSet = new ClassificationDataSet(data, 0);
 		dmp.trainC(dataSet);
 	}
@@ -117,4 +112,11 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 		
 		return Outcome.fromInt(ml);
 	}
+
+	@Override
+	public void crossValidate(XLog logs) {
+		// TODO Auto-generated method stub
+		
+	}
+	 
 }

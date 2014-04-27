@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- This file has been generated with the OpenXES library. It conforms -->
+<!-- to the XML serialization of the XES standard for log storage and -->
+<!-- management. -->
+<!-- XES standard version: 1.0 -->
+<!-- OpenXES library version: 1.0RC7 -->
+<!-- OpenXES is available from http://www.openxes.org/ -->
+<log xes.version="1.0" xes.features="nested-attributes" openxes.version="1.0RC7" xmlns="http://www.xes-standard.org/">
+	<trace>
+		<string key="concept:name" value="6dbfb592-982a-473e-8d4c-cfd193211a1c"/>
+		<string key="AMOUNT_REQ" value="924.0213579468664"/>
+		<date key="REG_DATE" value="1970-01-01T22:32:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T22:32:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T22:32:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T22:35:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T22:35:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="bc15bd54-42fa-451d-9752-24057507b091"/>
+		<string key="AMOUNT_REQ" value="19551.431945889337"/>
+		<date key="REG_DATE" value="1970-01-02T01:15:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:15:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:15:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:17:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:17:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="670a0784-9030-44f6-8390-18ccea6742d4"/>
+		<string key="AMOUNT_REQ" value="210.1566175863799"/>
+		<date key="REG_DATE" value="1970-01-01T03:22:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:22:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:22:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:24:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="c5c7e87b-2de4-47af-a883-2627e9e5e350"/>
+		<string key="AMOUNT_REQ" value="7356.122730608301"/>
+		<date key="REG_DATE" value="1970-01-01T07:55:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T07:55:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T07:55:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:03:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="7e3a63e6-a0b1-4d5a-b53f-9c19365df044"/>
+		<string key="AMOUNT_REQ" value="8378.490076746513"/>
+		<date key="REG_DATE" value="1970-01-01T14:41:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:41:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:41:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:45:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="d4f2f63f-17c1-46a5-9e03-296c343b5707"/>
+		<string key="AMOUNT_REQ" value="7154.025397452304"/>
+		<date key="REG_DATE" value="1970-01-01T05:08:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:08:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:08:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:09:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="63ee03b6-f0f4-4225-992b-b90dddb07921"/>
+		<string key="AMOUNT_REQ" value="26193.011301292634"/>
+		<date key="REG_DATE" value="1970-01-01T09:19:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:19:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:19:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:20:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="d9623445-d238-4ff0-b401-5e1a8c26d184"/>
+		<string key="AMOUNT_REQ" value="19897.832650538723"/>
+		<date key="REG_DATE" value="1970-01-01T16:29:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T16:29:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T16:29:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T16:30:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="dc4f0c69-ff0d-45f0-82b6-f60b2fcac4ac"/>
+		<string key="AMOUNT_REQ" value="593.4779520199068"/>
+		<date key="REG_DATE" value="1970-01-01T01:00:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:00:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:00:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:01:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:01:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="3571456b-ffd2-42f3-8c04-aace08cb5a84"/>
+		<string key="AMOUNT_REQ" value="23268.379827431163"/>
+		<date key="REG_DATE" value="1970-01-01T04:31:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T04:31:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T04:31:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T04:32:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="15af928d-50de-49fc-bbde-5c175497e777"/>
+		<string key="AMOUNT_REQ" value="26.65502474963716"/>
+		<date key="REG_DATE" value="1970-01-01T08:57:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:57:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:57:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:59:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="9c3886b6-8570-4949-a5e8-82c17bdf88e2"/>
+		<string key="AMOUNT_REQ" value="7212.330408435345"/>
+		<date key="REG_DATE" value="1970-01-01T23:57:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:57:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:57:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:57:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="ab883377-19c4-49ef-bd5f-fbb226950830"/>
+		<string key="AMOUNT_REQ" value="2820.272140305197"/>
+		<date key="REG_DATE" value="1970-01-01T23:11:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:11:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:11:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T23:12:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="e633aa2e-39d2-4c3e-a772-d675236c2729"/>
+		<string key="AMOUNT_REQ" value="32934.60903200672"/>
+		<date key="REG_DATE" value="1970-01-01T18:33:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T18:33:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T18:33:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T18:35:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="afbfc74c-b24b-4cdb-9a16-bb6ba777f3b1"/>
+		<string key="AMOUNT_REQ" value="1188.4449041253956"/>
+		<date key="REG_DATE" value="1970-01-01T06:55:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:55:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:55:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:57:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="fe028da3-3906-4543-a836-60cf9de916ac"/>
+		<string key="AMOUNT_REQ" value="3735.493782351548"/>
+		<date key="REG_DATE" value="1970-01-01T13:30:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T13:30:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T13:30:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T13:32:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="d7228eef-ae61-4951-9cb7-9bdf72741564"/>
+		<string key="AMOUNT_REQ" value="6717.109489221966"/>
+		<date key="REG_DATE" value="1970-01-01T21:58:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T21:58:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T21:58:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T22:00:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="5ca0228c-1381-46fc-88d5-792f7abdaf4b"/>
+		<string key="AMOUNT_REQ" value="38643.48456129144"/>
+		<date key="REG_DATE" value="1970-01-01T14:07:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:07:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:07:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T14:10:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="77bdb80c-4d5a-4463-921e-3d895811fe30"/>
+		<string key="AMOUNT_REQ" value="63053.87471472536"/>
+		<date key="REG_DATE" value="1970-01-01T15:14:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:14:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:14:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:15:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="d514bf85-b4ad-44bb-9e11-1781b1b466b1"/>
+		<string key="AMOUNT_REQ" value="41503.772908123654"/>
+		<date key="REG_DATE" value="1970-01-01T17:56:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:56:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:56:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:59:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="64e8a949-968d-4bf5-8dfe-f694d4159921"/>
+		<string key="AMOUNT_REQ" value="34926.92133159"/>
+		<date key="REG_DATE" value="1970-01-01T11:03:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:03:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:03:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:05:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="6e602280-bec1-43bf-9b93-acbb3c4b5877"/>
+		<string key="AMOUNT_REQ" value="26808.980283621553"/>
+		<date key="REG_DATE" value="1970-01-01T08:23:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:23:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:23:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T08:28:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="0488eebe-5202-4752-ab7f-335a1ce3f8af"/>
+		<string key="AMOUNT_REQ" value="9352.720532092704"/>
+		<date key="REG_DATE" value="1970-01-01T03:56:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:56:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:56:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:58:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T03:58:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="898b563f-6bb0-4420-938e-1062ec0aa9e6"/>
+		<string key="AMOUNT_REQ" value="6221.872340647015"/>
+		<date key="REG_DATE" value="1970-01-01T06:19:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:19:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:19:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T06:21:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="2763c7a0-8e38-4635-913d-2407845787b4"/>
+		<string key="AMOUNT_REQ" value="22049.979166811372"/>
+		<date key="REG_DATE" value="1970-01-01T02:44:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:44:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:44:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:47:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="f3fb5d4a-04f1-4ba7-811d-d73b6ae45d16"/>
+		<string key="AMOUNT_REQ" value="27643.719272021408"/>
+		<date key="REG_DATE" value="1970-01-01T12:17:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:17:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:17:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:22:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="ec4a5de4-e0a8-4f61-8035-70242ba76d48"/>
+		<string key="AMOUNT_REQ" value="1443.6081516146762"/>
+		<date key="REG_DATE" value="1970-01-01T19:07:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:07:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:07:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:07:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:07:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="0939cf0e-c41d-42f2-9cde-ed6f5b303d96"/>
+		<string key="AMOUNT_REQ" value="26515.17133127088"/>
+		<date key="REG_DATE" value="1970-01-01T01:34:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:34:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:34:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T01:35:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="54da81b2-f024-4ad4-8361-7010750f0846"/>
+		<string key="AMOUNT_REQ" value="2459.9681967837228"/>
+		<date key="REG_DATE" value="1970-01-01T20:23:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:23:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:23:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:25:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="1e99a81c-d007-46e5-a795-c0df622c20ae"/>
+		<string key="AMOUNT_REQ" value="4100.822092757969"/>
+		<date key="REG_DATE" value="1970-01-01T12:51:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:51:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:51:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T12:53:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="5ad3901d-3fc2-4ef8-ac8d-326d97e7fa23"/>
+		<string key="AMOUNT_REQ" value="6185.070771062898"/>
+		<date key="REG_DATE" value="1970-01-02T00:42:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T00:42:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T00:42:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T00:45:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="161896a0-3768-4c26-b199-4453a40565bd"/>
+		<string key="AMOUNT_REQ" value="12142.911290874948"/>
+		<date key="REG_DATE" value="1970-01-01T07:26:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T07:26:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T07:26:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T07:26:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="6c858def-6a71-4aff-a0cb-f2e036d18f91"/>
+		<string key="AMOUNT_REQ" value="5729.606233425375"/>
+		<date key="REG_DATE" value="1970-01-02T01:41:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:41:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:41:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-02T01:42:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="484f75e9-a9f6-4a53-8a9f-8bcf153448eb"/>
+		<string key="AMOUNT_REQ" value="26762.526880311863"/>
+		<date key="REG_DATE" value="1970-01-01T19:48:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:48:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:48:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:51:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T19:51:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="eef50e52-81ab-4217-bf20-31c8332755ef"/>
+		<string key="AMOUNT_REQ" value="6669.0178047526815"/>
+		<date key="REG_DATE" value="1970-01-01T05:46:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:46:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:46:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T05:48:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="e1f99969-235a-4e09-916a-52cac5738e5c"/>
+		<string key="AMOUNT_REQ" value="19878.01034327045"/>
+		<date key="REG_DATE" value="1970-01-01T10:26:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T10:26:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T10:26:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T10:28:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="d4a55fea-ac3a-4afa-b74b-c61a8f4bdd36"/>
+		<string key="AMOUNT_REQ" value="7197.796148138788"/>
+		<date key="REG_DATE" value="1970-01-01T15:50:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:50:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:50:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:55:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T15:55:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="59ed28ea-c71c-4c8a-ace5-bba2bbd350b2"/>
+		<string key="AMOUNT_REQ" value="7169.532156491184"/>
+		<date key="REG_DATE" value="1970-01-01T21:25:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T21:25:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T21:25:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T21:28:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="8004a200-ea10-4f52-9afe-b795bb586413"/>
+		<string key="AMOUNT_REQ" value="11991.849061051438"/>
+		<date key="REG_DATE" value="1970-01-01T02:07:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:07:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:07:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T02:10:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="f1338c7e-6aaf-4a03-b6d6-3457adcd6de6"/>
+		<string key="AMOUNT_REQ" value="13393.725529348987"/>
+		<date key="REG_DATE" value="1970-01-01T20:52:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:52:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:52:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T20:53:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="81435698-eacb-49d1-9548-e13579a1b17e"/>
+		<string key="AMOUNT_REQ" value="25629.442893493422"/>
+		<date key="REG_DATE" value="1970-01-01T11:40:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:40:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:40:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:43:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T11:43:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="97a73f9a-8b1f-4d60-8265-370b949e4143"/>
+		<string key="AMOUNT_REQ" value="51756.726839943985"/>
+		<date key="REG_DATE" value="1970-01-01T09:46:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:46:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:46:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:47:00+01:00"/>
+			<string key="concept:name" value="A_DECLINED"/>
+		</event>
+		<event>
+			<string key="OUTCOME" value="DECLINED"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:47:00+01:00"/>
+			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="5a55e93f-0b3e-4452-b51e-3654e05ffd55"/>
+		<string key="AMOUNT_REQ" value="6436.38577553251"/>
+		<date key="REG_DATE" value="1970-01-01T17:21:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:21:00+01:00"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:21:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
+		</event>
+		<event>
+			<string key="org:resource" value="112"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T17:23:00+01:00"/>
+			<string key="concept:name" value="A_PREAPPROVED"/>
+		</event>
+	</trace>
+</log>

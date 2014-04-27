@@ -9,7 +9,7 @@ import jsat.classifiers.CategoricalData;
  *
  */
 public enum Outcome implements CategoricalEnum {
-	ACCEPTED(0), DECLINED(1); //, UNDECIDED(2);
+	ACCEPTED(0), DECLINED(1), UNDECIDED(2);
 
 	private final int intValue;
 	
@@ -29,6 +29,8 @@ public enum Outcome implements CategoricalEnum {
 				return ACCEPTED;
 			case "DECLINED":
 				return DECLINED;
+			case "UNDECIDED":
+				return UNDECIDED;
 			default:
 				return null;
 		}
@@ -46,10 +48,10 @@ public enum Outcome implements CategoricalEnum {
 				return ACCEPTED;
 			case 1:
 				return DECLINED;
-			//case 2:
-			//	return UNDECIDED;
+			case 2:
+				return UNDECIDED;
 			default:
-				throw new IllegalArgumentException("No such cagegory.");
+				throw new IllegalArgumentException("No such category.");
 		}
 	}
 

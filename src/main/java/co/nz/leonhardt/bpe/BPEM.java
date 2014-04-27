@@ -6,6 +6,7 @@ import org.deckfour.xes.model.XLog;
 
 import co.nz.leonhardt.bpe.logs.CaseLog;
 import co.nz.leonhardt.bpe.logs.EventLog;
+import co.nz.leonhardt.bpe.stat.EventStatistics;
 
 /**
  * The Business Process Execution and Monitoring environment.
@@ -51,4 +52,12 @@ public interface BPEM {
 	 * @return TODO: to define
 	 */
 	public Map<?, ?> exportKPIs();
+	
+	/**
+	 * Returns the global statistics for a given event.
+	 * Contains information about time, quality and cost dimension.
+	 * 
+	 * @param eventName
+	 */
+	public EventStatistics getStatistics(String eventName);
 }

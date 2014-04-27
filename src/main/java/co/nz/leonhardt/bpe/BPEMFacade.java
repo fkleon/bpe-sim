@@ -7,6 +7,7 @@ import org.deckfour.xes.model.XLog;
 import co.nz.leonhardt.bpe.logs.CaseLog;
 import co.nz.leonhardt.bpe.logs.EventLog;
 import co.nz.leonhardt.bpe.logs.RAMProcessLogStorage;
+import co.nz.leonhardt.bpe.stat.EventStatistics;
 
 /**
  * Facade implementing the BPEM interface.
@@ -56,6 +57,12 @@ public class BPEMFacade implements BPEM {
 	@Override
 	public Map<?, ?> exportKPIs() {
 		// TODO export KPIs
+		return null;
+	}
+
+	@Override
+	public EventStatistics getStatistics(String eventName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

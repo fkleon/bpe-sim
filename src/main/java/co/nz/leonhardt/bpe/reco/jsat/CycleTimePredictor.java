@@ -1,7 +1,5 @@
-package co.nz.leonhardt.bpe.reco;
+package co.nz.leonhardt.bpe.reco.jsat;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import jsat.DataSet;
@@ -23,6 +21,8 @@ import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
+import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
+import co.nz.leonhardt.bpe.reco.PredictionService;
 
 /**
  * A cycle time predictor.
@@ -35,10 +35,10 @@ import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
 public class CycleTimePredictor implements PredictionService<Double> {
 	
 	/** The factory to create data points (for learning). */
-	private final DataPointFactory learnDPF;
+	private final DataExtractionFactory<DataPoint, DataSet> learnDPF;
 
 	/** The factory to create data points (for predicting). */
-	private final DataPointFactory predictDPF;
+	private final DataExtractionFactory<DataPoint, DataSet> predictDPF;
 
 	/** The pipeline: Regressor and all transformations. */
 	private final DataModelPipeline dmp;
@@ -53,7 +53,7 @@ public class CycleTimePredictor implements PredictionService<Double> {
 		 * 
 		 */
 		// Features to extract
-		learnDPF = DataPointFactory.create()
+		learnDPF = JSATFactory.create()
 				.withNumerics(
 					//new BiasMetricExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES), // Target variable first!
@@ -67,7 +67,7 @@ public class CycleTimePredictor implements PredictionService<Double> {
 		 * Must not contain target variable!
 		 * 
 		 */
-		predictDPF = DataPointFactory.create()
+		predictDPF = JSATFactory.create()
 				.withNumerics(
 						new TraceLengthExtractor(), 
 						new AmountRequestedExtractor())
@@ -93,26 +93,14 @@ public class CycleTimePredictor implements PredictionService<Double> {
 	}
 	
 	@Override
-	public void learn(XLog logs) {
-		List<DataPoint> data = new ArrayList<>(logs.size());
-		
-		//PolynomialTransform trans = new PolynomialTransform(1);
-
-		for(XTrace trace: logs) {
-			DataPoint dp = learnDPF.extractDataPoint(trace);
-			data.add(dp);
-		}
-		
+	public void learn(XLog log) {
+		DataSet data = learnDPF.extractDataSet(log);
 		//TODO: this assumes cycle time is always in the 1st place
-		RegressionDataSet dataSet = new RegressionDataSet(data, 0);
+		RegressionDataSet dataSet = new RegressionDataSet(data.getDataPoints(), 0);
 		
 		// apply transformations
-		//dtp.learnApplyTransforms(dataSet);
 		printSet(dataSet);
-		
 		dmp.train(dataSet);
-		
-		//lr.train(dataSet);
 		
 		//System.out.println("learned coefficients: " + lr.getCoefficents());
 		//System.out.println("bias: " + lr.getBias());
@@ -138,6 +126,12 @@ public class CycleTimePredictor implements PredictionService<Double> {
 			RegressionDataSet rDataSet = (RegressionDataSet)dataSet;
 			System.out.println(rDataSet.getTargetValues());
 		}
+		
+	}
+
+	@Override
+	public void crossValidate(XLog logs) {
+		// TODO Auto-generated method stub
 		
 	}
 
