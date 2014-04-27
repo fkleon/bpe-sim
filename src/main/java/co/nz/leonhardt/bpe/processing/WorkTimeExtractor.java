@@ -3,9 +3,11 @@ package co.nz.leonhardt.bpe.processing;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -67,33 +69,45 @@ public class WorkTimeExtractor implements NumericalMetricExtractor<Long> {
 	 * @param trace
 	 * @return a mapping of matches found.
 	 */
+	// TODO Some kind of bracket matcher algorithms could me more efficient?
 	private Map<XEvent, XEvent> matchLifeCycles(XTrace trace) {
 		Map<XEvent, XEvent> matchedEvents = new HashMap<>();
 		
-		// TODO Does not handle nested cycles, e.g. START, START, END, END.
-		// TODO Implement something like a bracket matcher algorithms for that.
+		// Contains positions of already matched complete events so that we don't
+		// match them multiple times
+		Set<Integer> completeEvents = new HashSet<>();
+		
 		for(int i = 0; i < trace.size(); i++) {
 			XEvent curEvent = trace.get(i);
-			
+			String curName = extractConceptName(curEvent);
+					
 			if(hasTransition(curEvent, StandardModel.START)) {
-				String curName = extractConceptName(curEvent);
-				
 				// find associated complete event
 				for(int j = i; j < trace.size(); j++) {
+					// ignore if j was already matched
+					if(completeEvents.contains(j)) {
+						continue;
+					}
+					
 					XEvent cEvent = trace.get(j);
 					
 					if(hasTransition(cEvent, StandardModel.COMPLETE) &&
 							curName.equals(extractConceptName(cEvent))) {
 						// end event.
 						matchedEvents.put(curEvent, cEvent);
+						
+						// remember matched event's position
+						completeEvents.add(j);
 						break;
 					}
+					
+					l.fine("Did not complete: " + curName);
 				}
 				continue;
 			}
 			
 			if(hasTransition(curEvent, StandardModel.COMPLETE)) {
-				l.fine("Found a complete transition before a start for event: " + extractConceptName(curEvent));
+				l.fine("Did not start: " + curName);
 			}
 		}
 		

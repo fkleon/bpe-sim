@@ -41,17 +41,17 @@ public class EventLog {
 	private String role;
 	private String group;
 	
-	public EventLog(final String uuid, final Date timestamp) {//, final Long relTimestamp) {
+	public EventLog(final String uuid, final Date timestamp) {
 		this.eventUuid = uuid;
 		this.timestamp = timestamp;
 	}
 	
-	public EventLog(final Date timestamp) {//final Long relTimestamp) {
+	public EventLog(final Date timestamp) {
 		this.eventUuid = UUID.randomUUID().toString();
 		this.timestamp = timestamp;
 	}
 	
-	public EventLog() {//final Long relTimestamp) {
+	public EventLog() {
 		this.eventUuid = UUID.randomUUID().toString();
 		this.timestamp = new Date();
 	}

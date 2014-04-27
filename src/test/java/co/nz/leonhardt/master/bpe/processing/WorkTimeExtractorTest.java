@@ -65,7 +65,7 @@ public class WorkTimeExtractorTest {
 		
 		// Case A: work\S, work\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e2 (2min)
 		e2 = buildEvent("work", StandardModel.COMPLETE, 2);
 		curTrace.add(e1);
 		curTrace.add(e2);
@@ -74,9 +74,9 @@ public class WorkTimeExtractorTest {
 		
 		// Case B: work\S, work\C, work\S, work\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e2 (2min)
 		e2 = buildEvent("work", StandardModel.COMPLETE, 2);
-		e3 = buildEvent("work", StandardModel.START, 3);
+		e3 = buildEvent("work", StandardModel.START, 3); // matches e4 (2min)
 		e4 = buildEvent("work", StandardModel.COMPLETE, 5);
 		curTrace.add(e1);
 		curTrace.add(e2);
@@ -87,7 +87,6 @@ public class WorkTimeExtractorTest {
 	}
 	
 	@Test
-	@Ignore("Does not work yet.")
 	public void testValidNestedSingle() {
 		WorkTimeExtractor wte = new WorkTimeExtractor(TimeUnit.MINUTES);
 
@@ -97,8 +96,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case A: work\S, work\S, work\C, work\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
-		e2 = buildEvent("work", StandardModel.START, 2);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e3 (3min)
+		e2 = buildEvent("work", StandardModel.START, 2); // matches e4 (3min)
 		e3 = buildEvent("work", StandardModel.COMPLETE, 3);
 		e4 = buildEvent("work", StandardModel.COMPLETE, 5);
 		curTrace.add(e1);
@@ -119,21 +118,21 @@ public class WorkTimeExtractorTest {
 		
 		// Case A: work\S
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
+		e1 = buildEvent("work", StandardModel.START, 0); // no complete
 		curTrace.add(e1);
 		expected = 0l;
 		Assert.assertEquals(expected, wte.extractMetric(curTrace));
 		
 		// Case B: work\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.COMPLETE, 0);
+		e1 = buildEvent("work", StandardModel.COMPLETE, 0); // no start
 		curTrace.add(e1);
 		expected = 0l;
 		Assert.assertEquals(expected, wte.extractMetric(curTrace));
 		
 		// Case C: work\C, work\S
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.COMPLETE, 0);
+		e1 = buildEvent("work", StandardModel.COMPLETE, 0); // complete before start
 		e2 = buildEvent("work", StandardModel.START, 2);
 		curTrace.add(e1);
 		curTrace.add(e2);
@@ -151,8 +150,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case A: work\S, work2\S, work2\C, work\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
-		e2 = buildEvent("work2", StandardModel.START, 2);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e4 (5min)
+		e2 = buildEvent("work2", StandardModel.START, 2); // matches e3 (1min)
 		e3 = buildEvent("work2", StandardModel.COMPLETE, 3);
 		e4 = buildEvent("work", StandardModel.COMPLETE, 5);
 		curTrace.add(e1);
@@ -164,8 +163,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case B: work\S, work2\S, work\C, work2\C
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
-		e2 = buildEvent("work2", StandardModel.START, 2);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e3 (3min)
+		e2 = buildEvent("work2", StandardModel.START, 2); // matches e4 (5min)
 		e3 = buildEvent("work", StandardModel.COMPLETE, 3);
 		e4 = buildEvent("work2", StandardModel.COMPLETE, 7);
 		curTrace.add(e1);
@@ -173,6 +172,36 @@ public class WorkTimeExtractorTest {
 		curTrace.add(e3);
 		curTrace.add(e4);
 		expected = 8l;
+		Assert.assertEquals(expected, wte.extractMetric(curTrace));
+	}
+	
+	@Test
+	public void testValidNestedMulti() {
+		WorkTimeExtractor wte = new WorkTimeExtractor(TimeUnit.MINUTES);
+
+		XTrace curTrace;
+		XEvent e1, e2, e3, e4, e5, e6, e7, e8;
+		Long expected;
+		
+		// Case A:
+		curTrace = xFac.createTrace();
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e8 (5min)
+		e2 = buildEvent("work", StandardModel.START, 0); // matches e7 (5min)
+		e3 = buildEvent("work2", StandardModel.START, 2); // matches e6 (1min)
+		e4 = buildEvent("work2", StandardModel.START, 2); // matches e5 (1min)
+		e5 = buildEvent("work2", StandardModel.COMPLETE, 3);
+		e6 = buildEvent("work2", StandardModel.COMPLETE, 3);
+		e7 = buildEvent("work", StandardModel.COMPLETE, 5);
+		e8 = buildEvent("work", StandardModel.COMPLETE, 5);
+		curTrace.add(e1);
+		curTrace.add(e2);
+		curTrace.add(e3);
+		curTrace.add(e4);
+		curTrace.add(e5);
+		curTrace.add(e6);
+		curTrace.add(e7);
+		curTrace.add(e8);
+		expected = 12l;
 		Assert.assertEquals(expected, wte.extractMetric(curTrace));
 	}
 	
@@ -186,8 +215,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case A:
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.COMPLETE, 0);
-		e2 = buildEvent("work2", StandardModel.START, 2);
+		e1 = buildEvent("work", StandardModel.COMPLETE, 0); // no start
+		e2 = buildEvent("work2", StandardModel.START, 2); // matches e3 (1min)
 		e3 = buildEvent("work2", StandardModel.COMPLETE, 3);
 		e4 = buildEvent("work", StandardModel.COMPLETE, 5);
 		curTrace.add(e1);
@@ -199,8 +228,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case B:
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.COMPLETE, 0);
-		e2 = buildEvent("work2", StandardModel.COMPLETE, 2);
+		e1 = buildEvent("work", StandardModel.COMPLETE, 0); // complete before start
+		e2 = buildEvent("work2", StandardModel.COMPLETE, 2); // complete before start
 		e3 = buildEvent("work", StandardModel.START, 3);
 		e4 = buildEvent("work2", StandardModel.START, 7);
 		curTrace.add(e1);
@@ -212,8 +241,8 @@ public class WorkTimeExtractorTest {
 		
 		// Case C:
 		curTrace = xFac.createTrace();
-		e1 = buildEvent("work", StandardModel.START, 0);
-		e2 = buildEvent("work2", StandardModel.COMPLETE, 2);
+		e1 = buildEvent("work", StandardModel.START, 0); // matches e4 (7min)
+		e2 = buildEvent("work2", StandardModel.COMPLETE, 2); // complete before start
 		e3 = buildEvent("work2", StandardModel.START, 3);
 		e4 = buildEvent("work", StandardModel.COMPLETE, 7);
 		curTrace.add(e1);
