@@ -3,7 +3,7 @@ bpe-sim
 
 An integrated business process monitoring and recommendation engine fed by a simulation model.
 
-### Struture
+### Structure
 
 TODO
 
