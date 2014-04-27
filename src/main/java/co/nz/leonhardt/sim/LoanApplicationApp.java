@@ -9,7 +9,9 @@ import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.out.XSerializer;
 import org.deckfour.xes.out.XesXmlSerializer;
 
-import co.nz.leonhardt.bpe.EventRepository;
+import co.nz.leonhardt.bpe.BPEM;
+import co.nz.leonhardt.bpe.BPEMFacade;
+import co.nz.leonhardt.bpe.logs.RAMProcessLogStorage;
 import co.nz.leonhardt.sim.event.LoanApplicationModel;
 import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
@@ -29,8 +31,11 @@ public class LoanApplicationApp {
 	 * @param args is an array of command-line arguments (will be ignored here)
 	 */
 	public static void main(String[] args) {
+		// create BPEM environment
+		BPEM bpem = new BPEMFacade();
+		
 		// create model and experiment
-		Model model = new LoanApplicationModel();
+		Model model = new LoanApplicationModel(bpem);
 		Experiment exp = new Experiment("LoanApplicationExperiment",
 				TimeUnit.SECONDS, TimeUnit.MINUTES, null);
 		// and connect them
@@ -57,11 +62,11 @@ public class LoanApplicationApp {
 		exp.report();
 		exp.finish();
 		
-		exportLogs("simLog.xes");
+		exportLogs(bpem, "simLog.xes");
 	}
 	
-	public static void exportLogs(String path) {
-		XLog log = EventRepository.getInstance().export();
+	public static void exportLogs(BPEM bpem, String path) {
+		XLog log = bpem.exportLog();
 		XSerializer xSer = new XesXmlSerializer();
 		
 		try(OutputStream fos = new FileOutputStream(path)) {

@@ -2,10 +2,9 @@ package co.nz.leonhardt.sim.common;
 
 import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
-import co.nz.leonhardt.bpe.EventRepository;
+import co.nz.leonhardt.bpe.BPEM;
 import co.nz.leonhardt.bpe.logs.EventLog;
 import desmoj.core.simulator.Event;
-import desmoj.core.simulator.Model;
 
 /**
  * A business event related to a business case.
@@ -19,8 +18,18 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 	/** The resource associated with this event */
 	//protected final String resource;
 	
-	public BusinessEvent(Model owner, String name, boolean showInTrace) {
+	protected BPEM bpemEnvironment;
+	
+	/**
+	 * Creates a new business event with the given BPEM-enabled model.
+	 * 
+	 * @param owner a BPEM-enabled model
+	 * @param name the name of this event
+	 * @param showInTrace
+	 */
+	public BusinessEvent(BpemEnabledModel owner, String name, boolean showInTrace) {
 		super(owner, name, showInTrace);
+		this.bpemEnvironment = owner.getBpemEnvironment();
 	}
 
 	@Override
@@ -29,7 +38,7 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 		EventLog log = new EventLog(presentTime().getTimeAsDate());
 		log.setConceptName(this.getClass().getSimpleName());
 		log.setLifecycleTransition(StandardModel.COMPLETE);
-		EventRepository.getInstance().addEvent(businessCase.getUuid(), log);		
+		bpemEnvironment.addEvent(businessCase.getUuid(), log);		
 	}
 	
 	/**
@@ -39,7 +48,7 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 	 * @param log the log
 	 */
 	protected void fireEventLog(E businessCase, EventLog log) {
-		EventRepository.getInstance().addEvent(businessCase.getUuid(), log);
+		bpemEnvironment.addEvent(businessCase.getUuid(), log);
 		sendTrace(log);
 	}
 	
@@ -54,7 +63,7 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 		EventLog log = new EventLog(presentTime().getTimeAsDate());
 		log.setConceptName(conceptName);
 		log.setLifecycleTransition(lifecycleTransition);
-		EventRepository.getInstance().addEvent(businessCase.getUuid(), log);
+		bpemEnvironment.addEvent(businessCase.getUuid(), log);
 		sendTrace(log);
 	}
 	
@@ -71,7 +80,7 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 		log.setConceptName(conceptName);
 		log.setLifecycleTransition(lifecycleTransition);
 		log.setResource(resource);
-		EventRepository.getInstance().addEvent(businessCase.getUuid(), log);
+		bpemEnvironment.addEvent(businessCase.getUuid(), log);
 		sendTrace(log);
 	}
 	
@@ -82,7 +91,7 @@ public class BusinessEvent<E extends BusinessCase> extends Event<E> {
 	 * @param bCase
 	 */
 	protected void closeCase(BusinessCase bCase) {
-		EventRepository.getInstance().endTrace(bCase.getUuid());
+		bpemEnvironment.endTrace(bCase.getUuid());
 	}
 	
 	private void sendTrace(EventLog log) {

@@ -1,4 +1,4 @@
-package co.nz.leonhardt.bpe;
+package co.nz.leonhardt.bpe.logs;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,8 +16,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 import co.nz.leonhardt.bpe.categories.Outcome;
-import co.nz.leonhardt.bpe.logs.CaseLog;
-import co.nz.leonhardt.bpe.logs.EventLog;
 
 /**
  * Collects all completed traces and partial traces.
@@ -27,35 +25,21 @@ import co.nz.leonhardt.bpe.logs.EventLog;
  * @author freddy
  *
  */
-public class EventRepository {
+public class RAMProcessLogStorage {
 	
 	protected Multimap<String, EventLog> events;
 	
 	protected HashMap<String, CaseLog> completedTraces;
 	protected HashMap<String, CaseLog> partialTraces;
 	
-	/** The instance */
-	private static EventRepository _INSTANCE;
-	
 	/**
 	 * Creates a new EventRepository
 	 */
-	private EventRepository() {
+	public RAMProcessLogStorage() {
 		this.events = ArrayListMultimap.create();
 		
 		this.completedTraces = new HashMap<>();
 		this.partialTraces = new HashMap<>();
-	}
-	
-	/**
-	 * Returns the singleton instance of EventRepository.
-	 * @return
-	 */
-	public static EventRepository getInstance() {
-		if (_INSTANCE == null) {
-			_INSTANCE = new EventRepository();
-		}
-		return _INSTANCE;
 	}
 	
 	/**

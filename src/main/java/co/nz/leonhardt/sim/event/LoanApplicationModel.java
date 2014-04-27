@@ -2,6 +2,8 @@ package co.nz.leonhardt.sim.event;
 
 import java.util.concurrent.TimeUnit;
 
+import co.nz.leonhardt.bpe.BPEM;
+import co.nz.leonhardt.sim.common.BpemEnabledModel;
 import desmoj.core.dist.BoolDistBernoulli;
 import desmoj.core.dist.ContDistExponential;
 import desmoj.core.dist.DiscreteDistPoisson;
@@ -9,7 +11,7 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.Queue;
 import desmoj.core.simulator.TimeSpan;
 
-public class LoanApplicationModel extends Model {
+public class LoanApplicationModel extends BpemEnabledModel {
 
 	/**
 	 * Random number stream used to draw a requested amount for an application.
@@ -35,12 +37,18 @@ public class LoanApplicationModel extends Model {
 	 */
 	private DiscreteDistPoisson applicationPreCheckTime;
 
-	
 	protected Queue<LoanApplication> applicationQueue;
 	
-	
-	public LoanApplicationModel() {
-		super(null, "LoanApplicationModel", true, true);
+	/**
+	 * Creates a new loan application model with the given
+	 * BPEM.
+	 * 
+	 * @param bpemEnvironment
+	 */
+	public LoanApplicationModel(BPEM bpemEnvironment) {
+		super(bpemEnvironment, null, "LoanApplicationModel", true, true);
+		
+		this.bpemEnvironment = bpemEnvironment;
 	}
 
 	@Override

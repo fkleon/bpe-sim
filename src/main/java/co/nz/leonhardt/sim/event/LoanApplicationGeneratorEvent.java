@@ -2,10 +2,8 @@ package co.nz.leonhardt.sim.event;
 
 import java.util.concurrent.TimeUnit;
 
-import co.nz.leonhardt.bpe.EventRepository;
 import co.nz.leonhardt.bpe.logs.CaseLog;
 import desmoj.core.simulator.ExternalEvent;
-import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 
 /**
@@ -19,8 +17,12 @@ import desmoj.core.simulator.TimeSpan;
  */
 public class LoanApplicationGeneratorEvent extends ExternalEvent {
 
-	public LoanApplicationGeneratorEvent(Model owner) {
+	private LoanApplicationModel model; 
+	
+	public LoanApplicationGeneratorEvent(LoanApplicationModel owner) {
 		super(owner, "LoanApplication Generator", true);
+		
+		this.model = owner;
 	}
 	
 	/**
@@ -31,9 +33,6 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 	 */
 	@Override
 	public void eventRoutine() {
-		// get a reference to the model
-		LoanApplicationModel model = (LoanApplicationModel) getModel();
-	
 		// draw requested amount
 		Double amountRequested = model.getApplicationAmountRequested();
 		
@@ -61,11 +60,11 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 	 * 
 	 * @param la
 	 */
-	protected void fireCaseLog(LoanApplication la) {
+	private void fireCaseLog(LoanApplication la) {
 		CaseLog caseLog = new CaseLog(la.getUuid(), la.getStartDate());
 		caseLog.setAmountRequested(la.getAmountRequested());
 		
-		EventRepository.getInstance().startTrace(caseLog);
+		model.getBpemEnvironment().startTrace(caseLog);
 	}
 
 }

@@ -2,8 +2,8 @@ package co.nz.leonhardt.sim.event;
 
 import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
+import co.nz.leonhardt.sim.common.BpemEnabledModel;
 import co.nz.leonhardt.sim.common.BusinessEvent;
-import desmoj.core.simulator.Model;
 
 /**
  * Event representing the submission of a Loan Application.
@@ -16,7 +16,7 @@ public class LoanApplicationPreApprovedEvent extends BusinessEvent<LoanApplicati
 	/** The resource associated with this event */
 	protected final String resource;
 	
-	public LoanApplicationPreApprovedEvent(Model owner) {
+	public LoanApplicationPreApprovedEvent(BpemEnabledModel owner) {
 		super(owner, "LoanApplicationPreApprove", true);
 		
 		this.resource = "112";	
