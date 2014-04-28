@@ -6,7 +6,11 @@ import co.nz.leonhardt.bpe.BPEM;
 import co.nz.leonhardt.sim.common.BpemEnabledModel;
 import desmoj.core.dist.BoolDistBernoulli;
 import desmoj.core.dist.ContDistExponential;
+import desmoj.core.dist.ContDistGamma;
+import desmoj.core.dist.ContDistWeibull;
+import desmoj.core.dist.DiscreteDist;
 import desmoj.core.dist.DiscreteDistPoisson;
+import desmoj.core.dist.Distribution;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.Queue;
 import desmoj.core.simulator.TimeSpan;
@@ -19,12 +23,12 @@ public class LoanApplicationModel extends BpemEnabledModel {
 	 *
 	 * See init() method for stream parameters.
 	 */
-	private ContDistExponential applicationAmountRequested;
+	private ContDistWeibull applicationAmountRequested;
 
 	/**
 	 * Random number stream used to draw a submission time for an application.
 	 */
-	private DiscreteDistPoisson applicationSubmissionTime;
+	private ContDistGamma applicationSubmissionTime;
 	
 	/**
 	 * Random boolean stream used to draw the condition of an immediately declined
@@ -78,13 +82,20 @@ public class LoanApplicationModel extends BpemEnabledModel {
 	public void init() {
 		// Stream for application amounts
 		// Exponential Distribution with mean of 13753
-		applicationAmountRequested = new ContDistExponential(this,
-				"LoanApplicationSubmissionAmountStream", 13573.3560785512, true, false);
+		double meanAmountRequested = 13573.3560785512;
+		applicationAmountRequested = new ContDistWeibull(this,
+				"AmountRequestedStream", meanAmountRequested, 1.0, true, true);
+		//applicationAmountRequested = new ContDistWeibull(this,
+		//		"AmountRequestedStream", meanAmountRequested, 0.5, true, true);
+		//applicationAmountRequested = new ContDistExponential(this,
+		//		"AmountRequestedStream", meanAmountRequested, true, false);
 		
 		// Stream for submission intervals
-		// Discrete Poisson Distribution with mean of 36 minutes TODO check
-		applicationSubmissionTime = new DiscreteDistPoisson(this,
-				"LoanApplicationSubmissionTimeStream", 36.0, true, false);
+		double meanArrivalTime = 17.23; // minutes
+		applicationSubmissionTime = new ContDistGamma(this,
+				"LoanApplicationSubmissionTimeStream", 2, meanArrivalTime, true, false);
+		//applicationSubmissionTime = new DiscreteDistPoisson(this,
+		//		"LoanApplicationSubmissionTimeStream", 36.0, true, false);
 
 		// Stream for applications declined immediately
 		// Bernoulli with 26% probability of declining the application
@@ -100,11 +111,11 @@ public class LoanApplicationModel extends BpemEnabledModel {
 		applicationQueue = new Queue<LoanApplication>(this, "Application Queue", true, true);
 	}
 	
-	protected Double getApplicationAmountRequested() {
-		return applicationAmountRequested.sample();	
+	protected Long getApplicationAmountRequested() {
+		return applicationAmountRequested.sample().longValue();	
 	}
 	
-	protected Long getApplicationSubmissionTime() {
+	protected Double getApplicationSubmissionTime() {
 		return applicationSubmissionTime.sample();
 	}
 

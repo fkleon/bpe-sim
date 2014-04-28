@@ -21,6 +21,7 @@ import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
+import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
 import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
 import co.nz.leonhardt.bpe.reco.PredictionService;
 
@@ -32,7 +33,7 @@ import co.nz.leonhardt.bpe.reco.PredictionService;
  * @author freddy
  *
  */
-public class CycleTimePredictor implements PredictionService<Double> {
+public class LRCycleTimePredictor implements PredictionService<Double> {
 	
 	/** The factory to create data points (for learning). */
 	private final DataExtractionFactory<DataPoint, DataSet> learnDPF;
@@ -46,7 +47,7 @@ public class CycleTimePredictor implements PredictionService<Double> {
 	/**
 	 * Creates a new cycle time predictor.
 	 */
-	public CycleTimePredictor() {
+	public LRCycleTimePredictor() {
 		/*
 		 * LEARN
 		 * First variable should be target variable.
@@ -58,7 +59,8 @@ public class CycleTimePredictor implements PredictionService<Double> {
 					//new BiasMetricExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES), // Target variable first!
 					new TraceLengthExtractor(), 
-					new AmountRequestedExtractor())
+					new AmountRequestedExtractor(),
+					new WorkTimeExtractor(TimeUnit.MINUTES))
 				.withCategories(
 					new OutcomeExtractor());
 		
@@ -70,7 +72,8 @@ public class CycleTimePredictor implements PredictionService<Double> {
 		predictDPF = JSATFactory.create()
 				.withNumerics(
 						new TraceLengthExtractor(), 
-						new AmountRequestedExtractor())
+						new AmountRequestedExtractor(),
+						new WorkTimeExtractor(TimeUnit.MINUTES))
 					.withCategories(
 						new OutcomeExtractor());
 		

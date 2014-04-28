@@ -19,18 +19,20 @@ import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.RandomMetricExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
+import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
 import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
+import co.nz.leonhardt.bpe.reco.PredictionResult;
 import co.nz.leonhardt.bpe.reco.PredictionService;
 
 /**
  * Classifier for outcome.
  * 
- * Uses k-nearest-neighbour.
+ * Uses k-nearest-neighbours.
  * 
  * @author freddy
  *
  */
-public class OutcomeClassifier implements PredictionService<Outcome> {
+public class KNNOutcomeClassifier implements PredictionService<PredictionResult<Outcome>> {
 	
 	/** The factory to create data points (for learning). */
 	private final DataExtractionFactory<Instance,Dataset> learnIF;
@@ -40,7 +42,7 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 	/**
 	 * Creates a new Outcome classifier.
 	 */
-	public OutcomeClassifier() {
+	public KNNOutcomeClassifier() {
 		/*
 		 * LEARN
 		 * First variable should be target variable.
@@ -52,7 +54,8 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 					new TraceLengthExtractor(),
 					new RandomMetricExtractor(),
 					new AmountRequestedExtractor(),
-					new CycleTimeExtractor(TimeUnit.MINUTES))
+					new CycleTimeExtractor(TimeUnit.MINUTES),
+					new WorkTimeExtractor(TimeUnit.MINUTES))
 				.withCategories(
 					new OutcomeExtractor());
 		
@@ -67,25 +70,26 @@ public class OutcomeClassifier implements PredictionService<Outcome> {
 	}
 
 	@Override
-	public Outcome predict(XTrace partialTrace) {
+	public PredictionResult<Outcome> predict(XTrace partialTrace) {
 		Instance instance = learnIF.extractDataPoint(partialTrace);
 		
-		Object predictedClassValue = classifier.classify(instance);
+		Outcome predictedClassValue = (Outcome)classifier.classify(instance);
 		
-		System.out.println("Prediction: " + predictedClassValue);
+		//System.out.println("Prediction: " + predictedClassValue);
 		
-		return (Outcome)predictedClassValue;
+		return new PredictionResult<Outcome>(predictedClassValue);
 	}
 
 	@Override
 	public void crossValidate(XLog logs) {
 		Dataset data = learnIF.extractDataSet(logs);
-		
+		System.out.println(data);
 		CrossValidation cv = new CrossValidation(classifier);
 		
 		Map<Object, PerformanceMeasure> pm = cv.crossValidation(data);
 		//Map<Object, PerformanceMeasure> pm = EvaluateDataset.testDataset(classifier, data);
-		for(Object o:pm.keySet())
-		    System.out.println(o+": "+pm.get(o).getAccuracy());
+		for(Object o:pm.keySet()) {
+		    System.out.println(o+", accuracy: "+pm.get(o).getAccuracy() + ", error rate: " + pm.get(o).getErrorRate());
+		}
 	}
 }

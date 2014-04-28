@@ -18,15 +18,15 @@ import desmoj.core.simulator.Model;
  */
 public class LoanApplication extends BusinessCase {
 
-	private final Double amountRequested;
+	private final Long amountRequested;
 	
-	public LoanApplication(Model owner, final Double amountRequested, final Date dateSubmitted) {
+	public LoanApplication(Model owner, final Long amountRequested, final Date dateSubmitted) {
 		super(owner, "LoanApplication", true, dateSubmitted);
 		
 		this.amountRequested = amountRequested;
 	}
 
-	public Double getAmountRequested() {
+	public Long getAmountRequested() {
 		return amountRequested;
 	}
 }

@@ -35,7 +35,7 @@
 		</event>
 	</trace>
 	<trace>
-		<string key="concept:name" value="ca742267-9ce9-4239-874c-a6abae95e520"/>
+		<string key="concept:name" value="ca742267-9ce9-4239-874c-a6abae95e521"/>
 		<string key="AMOUNT_REQ" value="15000.00"/>
 		<date key="REG_DATE" value="1970-01-01T14:07:00+01:00"/>
 		<event>
@@ -91,7 +91,7 @@
 		</event>
 	</trace>
 	<trace>
-		<string key="concept:name" value="a517966b-8736-4fa8-9467-cad20fc8c535"/>
+		<string key="concept:name" value="a517966b-8736-4fa8-9467-cad20fc8c536"/>
 		<string key="AMOUNT_REQ" value="25000.00"/>
 		<date key="REG_DATE" value="1970-01-01T09:46:00+01:00"/>
 		<event>
@@ -134,6 +134,22 @@
 			<string key="lifecycle:transition" value="complete"/>
 			<date key="time:timestamp" value="1970-01-01T11:26:00+01:00"/>
 			<string key="concept:name" value="END"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="a517966b-8736-4fa8-9467-cad20fc8c537"/>
+		<string key="AMOUNT_REQ" value="500.00"/>
+		<date key="REG_DATE" value="1970-01-01T09:47:00+01:00"/>
+		<event>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:47:00+01:000"/>
+			<string key="concept:name" value="START"/>
+		</event>
+		<event>
+			<string key="org:resource" value="WebForm"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="1970-01-01T09:47:00+01:00"/>
+			<string key="concept:name" value="A_SUBMITTED"/>
 		</event>
 	</trace>
 </log>

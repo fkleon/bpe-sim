@@ -10,7 +10,7 @@ import org.junit.Test;
 import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.reco.PredictionService;
-import co.nz.leonhardt.bpe.reco.javaml.OutcomeClassifier2;
+import co.nz.leonhardt.bpe.reco.javaml.KNNOutcomeClassifier;
 import co.nz.leonhardt.util.XesUtil;
 
 /**
@@ -19,7 +19,7 @@ import co.nz.leonhardt.util.XesUtil;
  * @author freddy
  *
  */
-public class KMeansClassificationTest {
+public class KNNClassificationTest {
 	private static XLog learnLog;
 	
 	@BeforeClass
@@ -35,20 +35,20 @@ public class KMeansClassificationTest {
 	
 	@Test
 	public void testClassification() {
-		PredictionService<Outcome> ps = new OutcomeClassifier2();
+		KNNOutcomeClassifier ps = new KNNOutcomeClassifier();
 		OutcomeExtractor oe = new OutcomeExtractor();
 		
 		ps.learn(learnLog);
 		
 		Outcome trueOutcome = oe.extractMetric(learnLog.get(0));
-		Outcome predictedOutcome = ps.predict(learnLog.get(0));
+		Outcome predictedOutcome = ps.predict(learnLog.get(0)).result;
 		Assert.assertNotNull(predictedOutcome);
 		Assert.assertEquals(trueOutcome, predictedOutcome);
 		System.out.println("Predicted: " + predictedOutcome + ", Truth: " + trueOutcome);
 
 		
 		trueOutcome = oe.extractMetric(learnLog.get(2));
-		predictedOutcome = ps.predict(learnLog.get(2));
+		predictedOutcome = ps.predict(learnLog.get(2)).result;
 		Assert.assertNotNull(predictedOutcome);
 		Assert.assertEquals(trueOutcome, predictedOutcome);
 		System.out.println("Predicted: " + predictedOutcome + ", Truth: " + trueOutcome);
@@ -56,7 +56,7 @@ public class KMeansClassificationTest {
 	
 	@Test
 	public void testCrossValidation() {
-		PredictionService<Outcome> ps = new OutcomeClassifier2();
+		KNNOutcomeClassifier ps = new KNNOutcomeClassifier();
 		
 		//ps.learn(learnLog);
 		ps.crossValidate(learnLog);

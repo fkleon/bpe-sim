@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import jsat.classifiers.CategoricalResults;
 import jsat.classifiers.ClassificationDataSet;
 import jsat.classifiers.Classifier;
 import jsat.classifiers.DataPoint;
@@ -18,24 +17,22 @@ import jsat.graphing.ClassificationPlot;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.bpe.categories.Outcome;
 
 /**
- * Classifier for outcome with visualisation.
+ * Classifier for outcome with visualisation. Only to be used for testing due to
+ * nasty side-effects.
  * 
- * Uses logistic regression.
- * 
- * Only to be used for testing.
+ * Uses the same algorithm as {@link LROutcomeClassifier}.
  * 
  * @author freddy
  *
  */
-public class OutcomeClassifierVis extends OutcomeClassifier {
+public class LROutcomeClassifierVis extends LROutcomeClassifier {
 
 	/**
 	 * Creates a new Outcome classifier.
 	 */
-	public OutcomeClassifierVis() {
+	public LROutcomeClassifierVis() {
 		super();
 	}
 
@@ -52,26 +49,6 @@ public class OutcomeClassifierVis extends OutcomeClassifier {
 		dmp.trainC(dataSet);
 		
 		visualizeCategories(dataSet);
-	}
-
-	@Override
-	public Outcome predict(XTrace partialTrace) {
-		DataPoint dp = learnDPF.extractDataPoint(partialTrace);
-		
-		/*
-		List<DataPoint> dps = new ArrayList<>();
-		dps.add(dp);
-		ClassificationDataSet cDataSet = new ClassificationDataSet(new SimpleDataSet(dps), 0);
-		visualizeClassification(cDataSet, dmp);
-		*/
-		
-		CategoricalResults cr = dmp.classify(dp);
-		
-		int ml = cr.mostLikely();
-		
-		System.out.println("Prediction: " + Outcome.fromInt(ml) + " (probability: " + cr.getProb(ml) + ")");
-		
-		return Outcome.fromInt(ml);
 	}
 	
 	private void visualizeCategories(ClassificationDataSet cDataSet) {

@@ -6,14 +6,17 @@ import org.deckfour.xes.model.XLog;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
+import co.nz.leonhardt.bpe.reco.ClassificationResult;
+import co.nz.leonhardt.bpe.reco.PredictionResult;
 import co.nz.leonhardt.bpe.reco.PredictionService;
-import co.nz.leonhardt.bpe.reco.jsat.CycleTimePredictor;
-import co.nz.leonhardt.bpe.reco.jsat.OutcomeClassifier;
+import co.nz.leonhardt.bpe.reco.jsat.LRCycleTimePredictor;
+import co.nz.leonhardt.bpe.reco.jsat.LROutcomeClassifier;
 import co.nz.leonhardt.util.XesUtil;
 
 /**
@@ -22,7 +25,7 @@ import co.nz.leonhardt.util.XesUtil;
  * @author freddy
  *
  */
-public class LogisticRegressionPredictionTest {
+public class LogisticRegressionTest {
 	private static XLog learnLog;
 	
 	@BeforeClass
@@ -37,7 +40,7 @@ public class LogisticRegressionPredictionTest {
 	
 	@Test
 	public void testRegressionPrediction() {
-		PredictionService<Double> ps = new CycleTimePredictor();
+		PredictionService<Double> ps = new LRCycleTimePredictor();
 		CycleTimeExtractor cte = new CycleTimeExtractor(TimeUnit.MINUTES);
 		
 		ps.learn(learnLog);
@@ -55,22 +58,41 @@ public class LogisticRegressionPredictionTest {
 	
 	@Test
 	public void testRegressionClassification() {
-		PredictionService<Outcome> ps = new OutcomeClassifier();
+		LROutcomeClassifier ps = new LROutcomeClassifier();
 		OutcomeExtractor oe = new OutcomeExtractor();
 		
 		ps.learn(learnLog);
 		
 		Outcome trueOutcome = oe.extractMetric(learnLog.get(0));
-		Outcome predictedOutcome = ps.predict(learnLog.get(0));
-		Assert.assertNotNull(predictedOutcome);
-		Assert.assertEquals(trueOutcome, predictedOutcome);
-		System.out.println("Predicted: " + predictedOutcome + ", Truth: " + trueOutcome);
+		ClassificationResult<Outcome> result = ps.predict(learnLog.get(0));
+		
+		for(PredictionResult<Outcome> pr: result) {
+			System.out.println(pr.result + "- " + pr.confidence);
+		}
+		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
+		Assert.assertNotNull(result.getBestResult());
+		Assert.assertEquals(trueOutcome, result.getBestResult());
 
 		
 		trueOutcome = oe.extractMetric(learnLog.get(2));
-		predictedOutcome = ps.predict(learnLog.get(2));
-		Assert.assertNotNull(predictedOutcome);
-		Assert.assertEquals(trueOutcome, predictedOutcome);
-		System.out.println("Predicted: " + predictedOutcome + ", Truth: " + trueOutcome);
+		result = ps.predict(learnLog.get(2));
+		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
+		Assert.assertNotNull(result.getBestResult());
+		Assert.assertEquals(trueOutcome, result.getBestResult());
+	
+		trueOutcome = oe.extractMetric(learnLog.get(learnLog.size()-1));
+		result = ps.predict(learnLog.get(learnLog.size()-1));
+		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
+		Assert.assertNotNull(result.getBestResult());
+		Assert.assertEquals(trueOutcome, result.getBestResult());
+	}
+	
+	@Test
+	@Ignore("this fails and needs debgging in JSAT")
+	public void testRegressionClassificationCV() {
+		LROutcomeClassifier ps = new LROutcomeClassifier();
+		
+		ps.learn(learnLog);
+		ps.crossValidate(learnLog);
 	}
 }

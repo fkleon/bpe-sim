@@ -34,7 +34,7 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 	@Override
 	public void eventRoutine() {
 		// draw requested amount
-		Double amountRequested = model.getApplicationAmountRequested();
+		Long amountRequested = model.getApplicationAmountRequested();
 		
 		// create a new application
 		LoanApplication application = new LoanApplication(model, amountRequested, presentTime().getTimeAsDate());
@@ -44,7 +44,7 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 		
 		// and schedule it for the current point in time
 		applicationSubmission.schedule(application, new TimeSpan(0));
-
+		
 		// schedule this application generator again for the next truck arrival time
 		schedule(new TimeSpan(model.getApplicationSubmissionTime(), TimeUnit.MINUTES));
 		// from inside to outside...

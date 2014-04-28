@@ -26,7 +26,7 @@ public class CaseLog {
 	private final Date timestamp;
 	
 	/* Amount requested */
-	private Double amountRequested; //TODO this is actually application-specific
+	private Long amountRequested; //TODO this is actually application-specific
 	
 	/**
 	 * Creates a new case log with the given uuid and timestamp.
@@ -57,11 +57,11 @@ public class CaseLog {
 		return timestamp;
 	}
 
-	public Double getAmountRequested() {
+	public Long getAmountRequested() {
 		return amountRequested;
 	}
 
-	public void setAmountRequested(Double amountRequested) {
+	public void setAmountRequested(Long amountRequested) {
 		this.amountRequested = amountRequested;
 	}
 	
