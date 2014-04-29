@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe.processing;
+package co.nz.leonhardt.bpe.processing;
 
 import java.util.concurrent.TimeUnit;
 

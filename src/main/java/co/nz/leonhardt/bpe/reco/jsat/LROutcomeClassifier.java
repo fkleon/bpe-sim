@@ -1,7 +1,6 @@
 package co.nz.leonhardt.bpe.reco.jsat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,9 +11,6 @@ import jsat.classifiers.ClassificationModelEvaluation;
 import jsat.classifiers.Classifier;
 import jsat.classifiers.DataPoint;
 import jsat.classifiers.OneVSAll;
-import jsat.classifiers.bayesian.NaiveBayes;
-import jsat.classifiers.linear.NHERD;
-import jsat.classifiers.svm.DCD;
 import jsat.datatransform.DataModelPipeline;
 import jsat.datatransform.DataTransformFactory;
 import jsat.regression.LogisticRegression;

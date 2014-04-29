@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe;
+package co.nz.leonhardt.bpe;
 
 public class EventRepositoryTest {
 	

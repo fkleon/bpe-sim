@@ -41,7 +41,7 @@ public class JavaMLFactory extends DataExtractionFactory<Instance, Dataset> {
 	
 	@Override
 	public DataExtractionFactory<Instance, Dataset> withCategories(CategoricalMetricExtractor<?>... catExts) {
-		if(catExts != null && catExts.length > 1) {
+		if(catExts == null || catExts.length > 1) {
 			throw new IllegalArgumentException("This factory only supports one class attribute.");
 		}
 		return super.withCategories(catExts);

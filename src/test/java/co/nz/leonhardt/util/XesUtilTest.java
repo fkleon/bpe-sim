@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.util;
+package co.nz.leonhardt.util;
 
 
 import org.deckfour.xes.model.XLog;

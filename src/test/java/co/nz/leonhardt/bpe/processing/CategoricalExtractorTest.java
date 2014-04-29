@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe.processing;
+package co.nz.leonhardt.bpe.processing;
 
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;

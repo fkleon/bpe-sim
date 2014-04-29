@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe.reco;
+package co.nz.leonhardt.bpe.reco;
 
 import java.util.concurrent.TimeUnit;
 

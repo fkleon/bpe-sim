@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe.processing;
+package co.nz.leonhardt.bpe.processing;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +13,6 @@ import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XTrace;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
@@ -49,7 +48,7 @@ public class WorkTimeExtractorTest {
 		
 		XEvent event = xFac.createEvent();
 		cExt.assignName(event, name);
-		tExt.assignTimestamp(event, new Date(relMinutes*60*1000));
+		tExt.assignTimestamp(event, new Date(relMinutes.longValue()*60*1000));
 		lcExt.assignStandardTransition(event, transition);
 		
 		return event;

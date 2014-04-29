@@ -1,4 +1,4 @@
-package co.nz.leonhardt.master.bpe.reco;
+package co.nz.leonhardt.bpe.reco;
 
 
 import org.deckfour.xes.model.XLog;
