@@ -18,4 +18,11 @@ public interface MetricExtractor<T> {
 	 * @return
 	 */
 	public T extractMetric(XTrace trace);
+	
+	/**
+	 * Returns the name of the metric produced by this extractor.
+	 * 
+	 * @return
+	 */
+	public String getMetricName();
 }

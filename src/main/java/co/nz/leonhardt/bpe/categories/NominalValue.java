@@ -2,7 +2,13 @@ package co.nz.leonhardt.bpe.categories;
 
 import jsat.classifiers.CategoricalData;
 
-public interface CategoricalEnum {
+/**
+ * Represents a nominal value.
+ * 
+ * @author freddy
+ *
+ */
+public interface NominalValue {
 
 	/**
 	 * Returns the int value of this category.

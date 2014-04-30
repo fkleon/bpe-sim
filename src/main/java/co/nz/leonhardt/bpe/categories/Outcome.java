@@ -8,7 +8,7 @@ import jsat.classifiers.CategoricalData;
  * @author freddy
  *
  */
-public enum Outcome implements CategoricalEnum {
+public enum Outcome implements NominalValue {
 	ACCEPTED(0), DECLINED(1), UNDECIDED(2);
 
 	private final int intValue;

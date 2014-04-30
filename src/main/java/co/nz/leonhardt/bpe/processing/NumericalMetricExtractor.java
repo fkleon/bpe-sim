@@ -1,20 +1,20 @@
 package co.nz.leonhardt.bpe.processing;
 
-import org.deckfour.xes.model.XTrace;
-
 /**
  * 
  * @author freddy
  *
  * @param <T>
  */
-public interface NumericalMetricExtractor<T extends Number> extends MetricExtractor<T> {
+public abstract class NumericalMetricExtractor<T extends Number> implements MetricExtractor<T> {
 
-	public T extractMetric(XTrace trace);
-	
 	/**
 	 * Returns the unique name associated with this numeric attribute
 	 * @return
+	 * @deprecated use getMetricName() instead.
 	 */
-	public String getNumericName();
+	@Deprecated
+	public String getNumericName() {
+		return this.getMetricName();
+	}
 }

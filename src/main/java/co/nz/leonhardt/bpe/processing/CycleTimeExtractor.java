@@ -16,7 +16,7 @@ import co.nz.leonhardt.bpe.util.TimeUtil;
  * @author freddy
  *
  */
-public class CycleTimeExtractor implements NumericalMetricExtractor<Long> {
+public class CycleTimeExtractor extends NumericalMetricExtractor<Long> {
 
 	private final TimeUnit timeUnit;
 	
@@ -49,7 +49,7 @@ public class CycleTimeExtractor implements NumericalMetricExtractor<Long> {
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "CycleTime";
 	}
 	

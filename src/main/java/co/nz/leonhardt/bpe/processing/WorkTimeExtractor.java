@@ -28,7 +28,7 @@ import co.nz.leonhardt.bpe.util.TimeUtil;
  * @author freddy
  *
  */
-public class WorkTimeExtractor implements NumericalMetricExtractor<Long> {
+public class WorkTimeExtractor extends NumericalMetricExtractor<Long> {
 
 	private final TimeUnit timeUnit;
 	
@@ -166,7 +166,7 @@ public class WorkTimeExtractor implements NumericalMetricExtractor<Long> {
 	
 	
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "WorkTime";
 	}
 

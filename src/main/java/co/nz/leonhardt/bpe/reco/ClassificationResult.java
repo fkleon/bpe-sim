@@ -38,4 +38,16 @@ public class ClassificationResult<T> implements Iterable<PredictionResult<T>> {
 	public Iterator<PredictionResult<T>> iterator() {
 		return results.iterator();
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder()
+			.append("[Classification Result]").append("\n");
+		
+		for(int i = 0; i < results.size(); i++) {
+			sb.append("#").append(i+1).append(" = ").append(results.get(i)).append("\n");
+		};
+		
+		return sb.toString();
+	}
 }

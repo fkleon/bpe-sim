@@ -13,7 +13,8 @@ import jsat.linear.Vec;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.bpe.categories.CategoricalEnum;
+import co.nz.leonhardt.bpe.categories.NominalValue;
+import co.nz.leonhardt.bpe.processing.CategoricalMetricExtractor;
 import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
 
 /**
@@ -43,6 +44,26 @@ public class JSATFactory extends DataExtractionFactory<DataPoint, DataSet>{
 		return new JSATFactory();
 	}
 
+	/**
+	 * The {@link JSATFactory} inserts the class value as first entry of the
+	 * categorical metric extractors.
+	 */
+	@Override
+	public DataExtractionFactory<DataPoint, DataSet> withClass(CategoricalMetricExtractor<?> classExt) {
+		/*
+		 * JSAT considers the class value just another categorical value, and the index
+		 * is given to the CategoricalDataSet to mark it as such.
+		 * 
+		 * We need to make sure that the class value is always the first categorical value
+		 * in the data set.
+		 */
+		if (categoricalMetrics.isEmpty()) {
+			categoricalMetrics.add(classExt);
+		} else {
+			categoricalMetrics.add(0, classExt);
+		}
+		return this;
+	}
 
 	@Override
 	public DataPoint extractDataPoint(XTrace trace) {
@@ -52,12 +73,12 @@ public class JSATFactory extends DataExtractionFactory<DataPoint, DataSet>{
 		Vec numericalVec = new DenseVector(numericalValues);
 
 		// categorical values
-		CategoricalEnum[] categoricalEnums = extractCategoricalValues(trace);
+		NominalValue[] categoricalEnums = extractNominalValues(trace);
 		int[] categoricalValues = new int[categoricalEnums.length];
 		CategoricalData[] categorialData = new CategoricalData[categoricalEnums.length];
 
 		int j = 0;
-		for (CategoricalEnum cat : categoricalEnums) {
+		for (NominalValue cat : categoricalEnums) {
 			int iv = cat.getIntValue();
 			CategoricalData cd = cat.getCategoricalData();
 			

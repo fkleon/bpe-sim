@@ -10,7 +10,7 @@ import org.deckfour.xes.model.XTrace;
  * @author freddy
  *
  */
-public class BiasMetricExtractor implements NumericalMetricExtractor<Double> {
+public class BiasMetricExtractor extends NumericalMetricExtractor<Double> {
 
 	@Override
 	public Double extractMetric(XTrace trace) {
@@ -18,7 +18,7 @@ public class BiasMetricExtractor implements NumericalMetricExtractor<Double> {
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "Bias";
 	}
 

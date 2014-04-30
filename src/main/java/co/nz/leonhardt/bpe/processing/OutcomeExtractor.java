@@ -23,4 +23,19 @@ public class OutcomeExtractor implements
 		String outcome = attr == null ? "undecided" : attr.toString();
 		return Outcome.fromString(outcome);
 	}
+
+	@Override
+	public String getMetricName() {
+		return "Outcome";
+	}
+
+	@Override
+	public int getNumCategories() {
+		return getCategories().length;
+	}
+
+	@Override
+	public Outcome[] getCategories() {
+		return Outcome.values();
+	}
 }

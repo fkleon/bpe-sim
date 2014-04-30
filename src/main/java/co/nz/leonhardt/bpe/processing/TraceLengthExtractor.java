@@ -8,7 +8,7 @@ import org.deckfour.xes.model.XTrace;
  * @author freddy
  *
  */
-public class TraceLengthExtractor implements NumericalMetricExtractor<Integer> {
+public class TraceLengthExtractor extends NumericalMetricExtractor<Integer> {
 
 	@Override
 	public Integer extractMetric(XTrace trace) {
@@ -16,7 +16,7 @@ public class TraceLengthExtractor implements NumericalMetricExtractor<Integer> {
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "TraceLength";
 	}
 

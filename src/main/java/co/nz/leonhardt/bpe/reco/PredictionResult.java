@@ -38,6 +38,16 @@ public class PredictionResult<T> {
 		this.confidence = null;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder()
+			.append("[Prediction Result] ")
+			.append("confidence = ").append(confidence).append("; ")
+			.append("result = ").append(result);
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * Comparator for prediction results.
 	 * Sorts by confidence DESC.

@@ -8,7 +8,7 @@ import org.deckfour.xes.model.XTrace;
  * @author freddy
  *
  */
-public class LoopCountExtractor implements NumericalMetricExtractor<Integer> {
+public class LoopCountExtractor extends NumericalMetricExtractor<Integer> {
 
 	@Override
 	public Integer extractMetric(XTrace trace) {
@@ -17,7 +17,7 @@ public class LoopCountExtractor implements NumericalMetricExtractor<Integer> {
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "LoopCount";
 	}
 

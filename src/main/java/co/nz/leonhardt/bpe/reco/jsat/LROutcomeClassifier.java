@@ -60,14 +60,15 @@ public class LROutcomeClassifier implements PredictionService<ClassificationResu
 		 */
 		// Features to extract
 		learnDPF = JSATFactory.create()
+				.withClass(new OutcomeExtractor())
 				.withNumerics(
 					new TraceLengthExtractor(),
 					//new RandomMetricExtractor(),
 					new AmountRequestedExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES),
-					new WorkTimeExtractor(TimeUnit.MINUTES))
-				.withCategories(
-					new OutcomeExtractor()); // Target variable first!
+					new WorkTimeExtractor(TimeUnit.MINUTES));
+				//.withCategories(
+				//	new OutcomeExtractor()); // Target variable first!
 		
 		/*
 		 * CLASSIFY

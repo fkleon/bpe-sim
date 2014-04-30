@@ -7,7 +7,7 @@ import java.util.List;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.bpe.categories.CategoricalEnum;
+import co.nz.leonhardt.bpe.categories.NominalValue;
 import co.nz.leonhardt.bpe.processing.CategoricalMetricExtractor;
 import co.nz.leonhardt.bpe.processing.NumericalMetricExtractor;
 
@@ -25,7 +25,10 @@ public abstract class DataExtractionFactory<P,S> {
 	protected final List<NumericalMetricExtractor<? extends Number>> numericalMetrics;
 	
 	/** Categorical extractors used on the trace */
-	protected final List<CategoricalMetricExtractor<? extends CategoricalEnum>> categoricalMetrics;
+	protected final List<CategoricalMetricExtractor<? extends NominalValue>> categoricalMetrics;
+	
+	/** Categorial extractor used to extract the class */
+	protected CategoricalMetricExtractor<? extends NominalValue> classMetric;
 
 	/**
 	 * Creates a new data extraction factory. Internal use only,
@@ -55,6 +58,17 @@ public abstract class DataExtractionFactory<P,S> {
 	 */
 	public DataExtractionFactory<P,S> withCategories(CategoricalMetricExtractor<?>... catExts) {
 		categoricalMetrics.addAll(Arrays.asList(catExts));
+		return this;
+	}
+	
+	/**
+	 * Adds the given categorical extractors to the list of extractors.
+	 * 
+	 * @param catExts
+	 * @return the data point factory itself
+	 */
+	public DataExtractionFactory<P,S> withClass(CategoricalMetricExtractor<?> classExt) {
+		classMetric = classExt;
 		return this;
 	}
 	
@@ -102,15 +116,25 @@ public abstract class DataExtractionFactory<P,S> {
 	 * @param trace
 	 * @return
 	 */
-	protected CategoricalEnum[] extractCategoricalValues(XTrace trace) {
-		CategoricalEnum[] categoricalValues = new CategoricalEnum[categoricalMetrics.size()];
+	protected NominalValue[] extractNominalValues(XTrace trace) {
+		NominalValue[] categoricalValues = new NominalValue[categoricalMetrics.size()];
 		
 		int i = 0;
-		for (CategoricalMetricExtractor<? extends CategoricalEnum> ex : categoricalMetrics) {
-			CategoricalEnum cat = ex.extractMetric(trace);
+		for (CategoricalMetricExtractor<? extends NominalValue> ex : categoricalMetrics) {
+			NominalValue cat = ex.extractMetric(trace);
 			categoricalValues[i++] = cat;
 		}
 		
 		return categoricalValues;
+	}
+	
+	/**
+	 * Extracts the class values from a trace.
+	 * 
+	 * @param trace
+	 * @return
+	 */
+	protected NominalValue extractClassValue(XTrace trace) {
+		return classMetric.extractMetric(trace);
 	}
 }

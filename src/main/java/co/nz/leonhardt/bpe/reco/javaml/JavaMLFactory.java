@@ -8,7 +8,7 @@ import net.sf.javaml.core.Instance;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.bpe.categories.CategoricalEnum;
+import co.nz.leonhardt.bpe.categories.NominalValue;
 import co.nz.leonhardt.bpe.processing.CategoricalMetricExtractor;
 import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
 
@@ -44,7 +44,8 @@ public class JavaMLFactory extends DataExtractionFactory<Instance, Dataset> {
 		if(catExts == null || catExts.length > 1) {
 			throw new IllegalArgumentException("This factory only supports one class attribute.");
 		}
-		return super.withCategories(catExts);
+		classMetric = catExts[0];		
+		return this;
 	}
 
 
@@ -54,17 +55,15 @@ public class JavaMLFactory extends DataExtractionFactory<Instance, Dataset> {
 		// numerical values
 		double[] numericalValues = extractNumericalValues(trace);
 
-		// categorical values
-		CategoricalEnum cat = null;
-		if(!categoricalMetrics.isEmpty()) {
-			CategoricalMetricExtractor<? extends CategoricalEnum> classExtractor = categoricalMetrics.get(0);
+		NominalValue cat = null;
+		if(classMetric != null) {
+			// extract class
+			CategoricalMetricExtractor<? extends NominalValue> classExtractor = classMetric;
 			cat = classExtractor.extractMetric(trace);
-		}
-		
-		if (cat == null) {
-			return new DenseInstance(numericalValues);
-		} else {
 			return new DenseInstance(numericalValues, cat);
+		} else {
+			// only numerics
+			return new DenseInstance(numericalValues);
 		}
 	}
 

@@ -50,15 +50,15 @@ public class KNNOutcomeClassifier implements PredictionService<PredictionResult<
 		 */
 		// Features to extract
 		learnIF = JavaMLFactory.create()
+				.withClass(
+					new OutcomeExtractor())
 				.withNumerics(
 					new TraceLengthExtractor(),
 					new RandomMetricExtractor(),
 					new AmountRequestedExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES),
-					new WorkTimeExtractor(TimeUnit.MINUTES))
-				.withCategories(
-					new OutcomeExtractor());
-		
+					new WorkTimeExtractor(TimeUnit.MINUTES));
+
 		classifier = new KNearestNeighbors(5);
 	}
 

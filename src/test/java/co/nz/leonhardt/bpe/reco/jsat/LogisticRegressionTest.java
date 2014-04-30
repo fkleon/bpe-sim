@@ -1,4 +1,4 @@
-package co.nz.leonhardt.bpe.reco;
+package co.nz.leonhardt.bpe.reco.jsat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +39,7 @@ public class LogisticRegressionTest {
 	}
 	
 	@Test
-	public void testRegressionPrediction() {
+	public void testRegressionPrediction() throws Exception {
 		PredictionService<Double> ps = new LRCycleTimePredictor();
 		CycleTimeExtractor cte = new CycleTimeExtractor(TimeUnit.MINUTES);
 		
@@ -65,15 +65,10 @@ public class LogisticRegressionTest {
 		
 		Outcome trueOutcome = oe.extractMetric(learnLog.get(0));
 		ClassificationResult<Outcome> result = ps.predict(learnLog.get(0));
-		
-		for(PredictionResult<Outcome> pr: result) {
-			System.out.println(pr.result + "- " + pr.confidence);
-		}
 		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
 		Assert.assertNotNull(result.getBestResult());
 		Assert.assertEquals(trueOutcome, result.getBestResult());
 
-		
 		trueOutcome = oe.extractMetric(learnLog.get(2));
 		result = ps.predict(learnLog.get(2));
 		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
@@ -88,7 +83,7 @@ public class LogisticRegressionTest {
 	}
 	
 	@Test
-	@Ignore("this fails and needs debgging in JSAT")
+	@Ignore("this fails and needs debugging in JSAT")
 	public void testRegressionClassificationCV() {
 		LROutcomeClassifier ps = new LROutcomeClassifier();
 		

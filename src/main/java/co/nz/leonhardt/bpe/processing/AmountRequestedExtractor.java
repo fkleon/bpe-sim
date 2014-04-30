@@ -9,7 +9,7 @@ import org.deckfour.xes.model.XTrace;
  * @author freddy
  *
  */
-public class AmountRequestedExtractor implements NumericalMetricExtractor<Double> {
+public class AmountRequestedExtractor extends NumericalMetricExtractor<Double> {
 
 	@Override
 	public Double extractMetric(XTrace trace) {
@@ -19,7 +19,7 @@ public class AmountRequestedExtractor implements NumericalMetricExtractor<Double
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "AmountRequested";
 	}
 

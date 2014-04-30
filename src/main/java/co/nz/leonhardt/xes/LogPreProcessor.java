@@ -81,7 +81,7 @@ public class LogPreProcessor {
 		//xesReader.writeToFile(outputPath, processedLog);
 		
 		String outputPathAmounts = ROOT_PATH + "logs/financial_log_amounts.csv";
-		
+
 		try (Writer writer = new BufferedWriter(new FileWriter(outputPathAmounts, false))) {
 			for (String amount: amounts) {
 				writer.append(amount + ",");

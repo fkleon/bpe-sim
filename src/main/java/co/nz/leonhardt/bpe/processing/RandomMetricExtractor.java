@@ -12,12 +12,12 @@ import org.deckfour.xes.model.XTrace;
  * @author freddy
  *
  */
-public class RandomMetricExtractor implements NumericalMetricExtractor<Double> {
+public class RandomMetricExtractor extends NumericalMetricExtractor<Double> {
 
 	private final Random rand;
 	
 	public RandomMetricExtractor() {
-		rand = new Random();
+		this.rand = new Random();
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class RandomMetricExtractor implements NumericalMetricExtractor<Double> {
 	}
 
 	@Override
-	public String getNumericName() {
+	public String getMetricName() {
 		return "Random";
 	}
 

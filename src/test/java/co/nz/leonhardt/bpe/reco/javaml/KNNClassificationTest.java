@@ -1,5 +1,4 @@
-package co.nz.leonhardt.bpe.reco;
-
+package co.nz.leonhardt.bpe.reco.javaml;
 
 import org.deckfour.xes.model.XLog;
 import org.junit.Assert;
@@ -9,7 +8,6 @@ import org.junit.Test;
 
 import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
-import co.nz.leonhardt.bpe.reco.PredictionService;
 import co.nz.leonhardt.bpe.reco.javaml.KNNOutcomeClassifier;
 import co.nz.leonhardt.util.XesUtil;
 
