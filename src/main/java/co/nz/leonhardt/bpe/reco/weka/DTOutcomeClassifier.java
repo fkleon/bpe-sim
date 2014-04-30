@@ -2,12 +2,14 @@ package co.nz.leonhardt.bpe.reco.weka;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 
 import weka.classifiers.Classifier;
+import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -76,8 +78,13 @@ public class DTOutcomeClassifier implements PredictionService<ClassificationResu
 	}
 
 	@Override
-	public void crossValidate(XLog log) {
+	public void crossValidate(XLog log) throws Exception {
 		// TODO Auto-generated method stub
+		Instances dataSet = dataFactory.extractDataSet(log);
+		Evaluation eval = new Evaluation(dataSet);
+		eval.crossValidateModel(classifier, dataSet, 10, new Random(1));
+		
+		System.out.println("RMSE: " + eval.rootMeanSquaredError());
 	}
 
 }

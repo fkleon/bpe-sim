@@ -16,7 +16,7 @@ public interface PredictionService<T> {
 	 * Learns from the givne log.
 	 * 
 	 * @param log
-	 * @throws if model could not be trained
+	 * @throws Exception if model could not be trained
 	 */
 	public void learn(XLog log) throws Exception;
 	
@@ -25,7 +25,7 @@ public interface PredictionService<T> {
 	 * 
 	 * @param partialTrace
 	 * @return
-	 * @throws if trace could not be predicted
+	 * @throws Exception if trace could not be predicted
 	 */
 	public T predict(XTrace partialTrace) throws Exception;
 	
@@ -33,6 +33,7 @@ public interface PredictionService<T> {
 	 * Performs cross-validation on the given log.
 	 * 
 	 * @param log
+	 * @throws Exception if cross-validation failed
 	 */
-	public void crossValidate(XLog log);
+	public void crossValidate(XLog log) throws Exception;
 }

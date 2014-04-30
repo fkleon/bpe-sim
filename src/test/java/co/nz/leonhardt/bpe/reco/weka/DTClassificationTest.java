@@ -56,4 +56,10 @@ public class DTClassificationTest {
 		Assert.assertNotNull(result.getBestResult());
 		Assert.assertEquals(trueOutcome, result.getBestResult());
 	}
+	
+	@Test
+	public void testCrossValidation() throws Exception {
+		DTOutcomeClassifier ps = new DTOutcomeClassifier();
+		ps.crossValidate(learnLog);
+	}
 }
