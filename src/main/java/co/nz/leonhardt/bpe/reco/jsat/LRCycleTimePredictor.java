@@ -12,6 +12,7 @@ import jsat.datatransform.StandardizeTransform;
 import jsat.datatransform.UnitVarianceTransform;
 import jsat.regression.LogisticRegression;
 import jsat.regression.RegressionDataSet;
+import jsat.regression.RegressionModelEvaluation;
 import jsat.regression.Regressor;
 
 import org.deckfour.xes.model.XLog;
@@ -133,9 +134,19 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 	}
 
 	@Override
-	public void crossValidate(XLog logs) {
-		// TODO Auto-generated method stub
+	public void crossValidate(XLog log) {
+		DataSet data = learnDPF.extractDataSet(log);
+		RegressionDataSet dataSet = new RegressionDataSet(data.getDataPoints(), 0);
+		RegressionModelEvaluation modelEvaluation = new RegressionModelEvaluation(dmp, dataSet);
+		modelEvaluation.evaluateCrossValidation(10);
 		
+		System.out.println("RMSE error is " + modelEvaluation.getMeanError());
+		System.out.println("Min RMSE error is " + modelEvaluation.getMinError());
+		System.out.println("Max RMSE error is " + modelEvaluation.getMaxError());
+
+		System.out.println("Trainig time: " + modelEvaluation.getTotalTrainingTime()/1000.0 + " seconds");
+		System.out.println("Prediction time: " + modelEvaluation.getTotalClassificationTime()/1000.0 + " seconds\n");
+		modelEvaluation.prettyPrintRegressionScores();
 	}
 
 }

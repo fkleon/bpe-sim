@@ -3,6 +3,7 @@ package co.nz.leonhardt.bpe.reco.jsat;
 import java.util.concurrent.TimeUnit;
 
 import org.deckfour.xes.model.XLog;
+import org.deckfour.xes.model.XTrace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -43,17 +44,17 @@ public class LogisticRegressionTest {
 		PredictionService<Double> ps = new LRCycleTimePredictor();
 		CycleTimeExtractor cte = new CycleTimeExtractor(TimeUnit.MINUTES);
 		
+		double acceptedError = 1.5;
+		
 		ps.learn(learnLog);
 		
-		Long realTime = cte.extractMetric(learnLog.get(0));
-		Double predictedTime = ps.predict(learnLog.get(0));
-		Assert.assertNotNull(predictedTime);
-		System.out.println("Predicted: " + predictedTime + ", Truth: " + realTime);
-		
-		realTime = cte.extractMetric(learnLog.get(2));
-		predictedTime = ps.predict(learnLog.get(2));
-		Assert.assertNotNull(predictedTime);
-		System.out.println("Predicted: " + predictedTime + ", Truth: " + realTime);
+		for(XTrace trace: learnLog) {
+			Long realTime = cte.extractMetric(trace);
+			Double predictedTime = ps.predict(trace);
+			Assert.assertNotNull(predictedTime);
+			System.out.println("Predicted: " + predictedTime + ", Truth: " + realTime);
+			Assert.assertEquals(realTime, predictedTime, acceptedError);
+		}
 	}
 	
 	@Test
@@ -86,6 +87,14 @@ public class LogisticRegressionTest {
 	@Ignore("this fails and needs debugging in JSAT")
 	public void testRegressionClassificationCV() {
 		LROutcomeClassifier ps = new LROutcomeClassifier();
+		
+		ps.learn(learnLog);
+		ps.crossValidate(learnLog);
+	}
+	
+	@Test
+	public void testRegressionPredictionCV() {
+		LRCycleTimePredictor ps = new LRCycleTimePredictor();
 		
 		ps.learn(learnLog);
 		ps.crossValidate(learnLog);

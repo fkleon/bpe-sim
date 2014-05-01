@@ -54,7 +54,7 @@ public class KNNOutcomeClassifier implements PredictionService<PredictionResult<
 					new OutcomeExtractor())
 				.withNumerics(
 					new TraceLengthExtractor(),
-					new RandomMetricExtractor(),
+					//new RandomMetricExtractor(),
 					new AmountRequestedExtractor(),
 					new CycleTimeExtractor(TimeUnit.MINUTES),
 					new WorkTimeExtractor(TimeUnit.MINUTES));
