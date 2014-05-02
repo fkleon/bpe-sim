@@ -20,7 +20,6 @@ import org.deckfour.xes.model.XTrace;
 
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
-import co.nz.leonhardt.bpe.processing.LoopLengthExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
 import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
@@ -30,12 +29,12 @@ import co.nz.leonhardt.bpe.reco.PredictionService;
 /**
  * A cycle time predictor.
  * 
- * Uses logistic regression.
+ * Uses a given regressor.
  * 
  * @author freddy
  *
  */
-public class LRCycleTimePredictor implements PredictionService<Double> {
+public class GenericCycleTimePredictor implements PredictionService<Double> {
 	
 	/** The factory to create data points (for learning). */
 	private final DataExtractionFactory<DataPoint, DataSet> learnDPF;
@@ -49,7 +48,7 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 	/**
 	 * Creates a new cycle time predictor.
 	 */
-	public LRCycleTimePredictor() {
+	public GenericCycleTimePredictor(Regressor baseRegressor) {
 		/*
 		 * LEARN
 		 * First variable should be target variable.
@@ -62,11 +61,10 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 					new CycleTimeExtractor(TimeUnit.MINUTES), // Target variable first!
 					new TraceLengthExtractor(), 
 					new AmountRequestedExtractor(),
-					new LoopLengthExtractor(),
-					new WorkTimeExtractor(TimeUnit.MINUTES))
-				.withCategories(
-					new OutcomeExtractor());
-		
+					new WorkTimeExtractor(TimeUnit.MINUTES));
+//				.withCategories(
+//					new OutcomeExtractor());
+//		
 		/*
 		 * REGRESS
 		 * Must not contain target variable!
@@ -76,7 +74,6 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 				.withNumerics(
 						new TraceLengthExtractor(), 
 						new AmountRequestedExtractor(),
-						new LoopLengthExtractor(),
 						new WorkTimeExtractor(TimeUnit.MINUTES))
 					.withCategories(
 						new OutcomeExtractor());
@@ -86,7 +83,7 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 		 */
 		
 		// Regressor to use
-		Regressor baseRegressor = new LogisticRegression();
+		//Regressor baseRegressor = new LogisticRegression();
 		
 		// Transformations to do
 		DataTransformFactory[] factories = new DataTransformFactory[] {
