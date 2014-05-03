@@ -3,9 +3,16 @@ package co.nz.leonhardt.sim.common;
 import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
 import co.nz.leonhardt.bpe.logs.EventLog;
-import co.nz.leonhardt.sim.event.Resource;
+import co.nz.leonhardt.sim.model.entity.Resource;
 import desmoj.core.simulator.Event;
 
+/**
+ * Simple business event only related to a case.
+ * 
+ * @author freddy
+ *
+ * @param <C>
+ */
 public class SimpleBusinessEvent<C extends BusinessCase> extends Event<C>
 		implements BusinessEvent {
 

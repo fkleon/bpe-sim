@@ -16,7 +16,7 @@ import org.deckfour.xes.out.XesXmlGZIPSerializer;
 
 import co.nz.leonhardt.bpe.BPEM;
 import co.nz.leonhardt.bpe.BPEMFacade;
-import co.nz.leonhardt.sim.event.LoanApplicationModel;
+import co.nz.leonhardt.sim.model.SimulationModel;
 import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.TimeInstant;
 
@@ -38,7 +38,7 @@ public class LoanApplicationApp {
 		BPEM bpem = new BPEMFacade();
 		
 		// create model and experiment
-		LoanApplicationModel model = new LoanApplicationModel(bpem);
+		SimulationModel model = new SimulationModel(bpem);
 		Experiment exp = new Experiment("LoanApplicationExperiment",
 				TimeUnit.SECONDS, TimeUnit.MINUTES, null);
 		model.setAmountSample(loadAmounts());

@@ -46,7 +46,6 @@ public class LogPreProcessor {
 	
 	public static void main(String... args) throws Exception {
 		XesReader xesReader = new XesReader();
-		EventNameTranslator ent = new EventNameTranslator();
 		
 		l.info("Reading log from " + FINANCIAL_LOG_XES);
 		

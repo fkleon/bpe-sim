@@ -57,7 +57,7 @@ public interface BPEM {
 	 * Returns the global statistics for a given event.
 	 * Contains information about time, quality and cost dimension.
 	 * 
-	 * @param eventName
+	 * @param activityName
 	 */
-	public EventStatistics getStatistics(String eventName);
+	public EventStatistics getStatistics(String activityName);
 }

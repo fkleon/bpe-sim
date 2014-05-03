@@ -4,7 +4,7 @@ import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
 import co.nz.leonhardt.bpe.BPEM;
 import co.nz.leonhardt.bpe.logs.EventLog;
-import co.nz.leonhardt.sim.event.Resource;
+import co.nz.leonhardt.sim.model.entity.Resource;
 import desmoj.core.simulator.EventOf2Entities;
 
 /**
