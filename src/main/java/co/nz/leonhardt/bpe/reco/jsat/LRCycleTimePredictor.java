@@ -93,7 +93,7 @@ public class LRCycleTimePredictor implements PredictionService<Double> {
 				//new UnitVarianceTransform.UnitVarianceTransformFactory(),
 				//new PNormNormalization.PNormNormalizationFactory(2.0),
 				//new PolynomialTransform.PolyTransformFactory(2),
-				//new StandardizeTransform.StandardizeTransformFactory()
+				new StandardizeTransform.StandardizeTransformFactory()
 		};
 
 		dmp = new DataModelPipeline(baseRegressor, factories);

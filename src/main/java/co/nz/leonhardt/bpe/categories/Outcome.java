@@ -29,6 +29,8 @@ public enum Outcome implements NominalValue {
 				return ACCEPTED;
 			case "DECLINED":
 				return DECLINED;
+			case "CANCELLED":
+				return CANCELLED;
 			case "UNDECIDED":
 				return UNDECIDED;
 			default:
@@ -50,6 +52,8 @@ public enum Outcome implements NominalValue {
 				return DECLINED;
 			case 2:
 				return UNDECIDED;
+			case 3:
+				return CANCELLED;
 			default:
 				throw new IllegalArgumentException("No such category.");
 		}

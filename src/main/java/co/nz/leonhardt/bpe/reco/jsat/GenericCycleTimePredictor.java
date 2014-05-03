@@ -20,6 +20,7 @@ import org.deckfour.xes.model.XTrace;
 
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
+import co.nz.leonhardt.bpe.processing.LoopLengthExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
 import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
@@ -61,6 +62,7 @@ public class GenericCycleTimePredictor implements PredictionService<Double> {
 					new CycleTimeExtractor(TimeUnit.MINUTES), // Target variable first!
 					new TraceLengthExtractor(), 
 					new AmountRequestedExtractor(),
+					new LoopLengthExtractor(),
 					new WorkTimeExtractor(TimeUnit.MINUTES));
 //				.withCategories(
 //					new OutcomeExtractor());
@@ -74,6 +76,7 @@ public class GenericCycleTimePredictor implements PredictionService<Double> {
 				.withNumerics(
 						new TraceLengthExtractor(), 
 						new AmountRequestedExtractor(),
+						new LoopLengthExtractor(),
 						new WorkTimeExtractor(TimeUnit.MINUTES))
 					.withCategories(
 						new OutcomeExtractor());

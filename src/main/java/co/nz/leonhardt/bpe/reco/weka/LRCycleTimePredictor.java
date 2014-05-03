@@ -1,8 +1,5 @@
 package co.nz.leonhardt.bpe.reco.weka;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -11,78 +8,60 @@ import org.deckfour.xes.model.XTrace;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.trees.J48;
+import weka.classifiers.functions.LinearRegression;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.converters.ArffSaver;
-import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.LoopLengthExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
 import co.nz.leonhardt.bpe.processing.TraceLengthExtractor;
 import co.nz.leonhardt.bpe.processing.WorkTimeExtractor;
-import co.nz.leonhardt.bpe.reco.ClassificationResult;
 import co.nz.leonhardt.bpe.reco.DataExtractionFactory;
 import co.nz.leonhardt.bpe.reco.PredictionResult;
 import co.nz.leonhardt.bpe.reco.PredictionService;
 
 /**
- * Classifier for outcome.
+ * Predictor for cycle time.
  * 
- * Uses a J48 Decision Tree.
+ * Uses a Logistic Regression model.
  * 
  * @author freddy
  *
  */
-public class DTOutcomeClassifier implements PredictionService<ClassificationResult<Outcome>> {
+public class LRCycleTimePredictor implements PredictionService<PredictionResult<Double>> {
 
 	Classifier classifier;
 	
 	DataExtractionFactory<Instance, Instances> dataFactory;
 	/**
-	 * Creates a new decision treee outcome classifier.
+	 * Creates a new cycle time predictor (Weka)
 	 */
-	public DTOutcomeClassifier() {
-		classifier = new J48();
-		dataFactory = WekaClassificationFactory.create()
+	public LRCycleTimePredictor() {
+		classifier = new LinearRegression();
+		dataFactory = WekaNumericalFactory.create()
 				.withClass(
+						new CycleTimeExtractor(TimeUnit.MINUTES))
+				.withCategories(
 						new OutcomeExtractor())
 				.withNumerics(
 						new TraceLengthExtractor(),
+						//new RandomMetricExtractor(),
 						new AmountRequestedExtractor(),
 						new LoopLengthExtractor(),
-						new CycleTimeExtractor(TimeUnit.MINUTES),
 						new WorkTimeExtractor(TimeUnit.MINUTES));
 	}
 	
 	@Override
 	public void learn(XLog log) throws Exception {
 		Instances dataSet = dataFactory.extractDataSet(log);
-		
-		ArffSaver saver = new ArffSaver();
-		saver.setInstances(dataSet);
-		saver.setFile(new File("/home/freddy/simLog.arff"));
-		saver.writeBatch();
-		
 		classifier.buildClassifier(dataSet);
 	}
 
 	@Override
-	public ClassificationResult<Outcome> predict(XTrace partialTrace) throws Exception {
+	public PredictionResult<Double> predict(XTrace partialTrace) throws Exception {
 		Instance instance = dataFactory.extractDataPoint(partialTrace);
-		
-		//Double classification = classifier.classifyInstance(instance);
-		double[] distribution = classifier.distributionForInstance(instance);
-		
-		List<PredictionResult<Outcome>> prResults = new ArrayList<>();
-		for(int i = 0; i < distribution.length; i++) {
-			Outcome prOutcome = Outcome.fromInt(i);
-			double prConfidence = distribution[i];
-			PredictionResult<Outcome> pr = new PredictionResult<Outcome>(prOutcome, prConfidence);
-			prResults.add(pr);
-		}
-		return new ClassificationResult<Outcome>(prResults);
+		return new PredictionResult<Double>(classifier.classifyInstance(instance));
 	}
 
 	@Override
@@ -93,7 +72,7 @@ public class DTOutcomeClassifier implements PredictionService<ClassificationResu
 		eval.crossValidateModel(classifier, dataSet, 10, new Random(1));
 		
 		System.out.println("RMSE: " + eval.rootMeanSquaredError());
-		System.out.println(eval.toSummaryString());
+		System.out.println(eval.toClassDetailsString());
 	}
 
 }

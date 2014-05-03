@@ -1,7 +1,7 @@
 package co.nz.leonhardt.bpe.reco.weka;
 
-
 import org.deckfour.xes.model.XLog;
+import org.deckfour.xes.model.XTrace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,7 +23,7 @@ public class DTClassificationTest {
 	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		learnLog = XesUtil.parseFrom("/logs/simLog.xes");
+		learnLog = XesUtil.parseFrom("/logs/simLog.xes.gz");
 	}
 	
 	@Before
@@ -38,23 +38,14 @@ public class DTClassificationTest {
 		
 		ps.learn(learnLog);
 		
-		Outcome trueOutcome = oe.extractMetric(learnLog.get(0));
-		ClassificationResult<Outcome> result = ps.predict(learnLog.get(0));
-		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
-		Assert.assertNotNull(result.getBestResult());
-		Assert.assertEquals(trueOutcome, result.getBestResult());
-
-		trueOutcome = oe.extractMetric(learnLog.get(2));
-		result = ps.predict(learnLog.get(2));
-		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
-		Assert.assertNotNull(result.getBestResult());
-		Assert.assertEquals(trueOutcome, result.getBestResult());
-
-		trueOutcome = oe.extractMetric(learnLog.get(learnLog.size()-1));
-		result = ps.predict(learnLog.get(learnLog.size()-1));
-		System.out.println("Predicted: " + result.getBestResult() + ", Truth: " + trueOutcome);
-		Assert.assertNotNull(result.getBestResult());
-		Assert.assertEquals(trueOutcome, result.getBestResult());
+		
+		for(XTrace trace: learnLog) {
+			Outcome trueOutcome = oe.extractMetric(trace);
+			ClassificationResult<Outcome> classification = ps.predict(trace);
+			Assert.assertNotNull(classification);
+			System.out.println(classification.results.get(0) + ", [Truth] " + trueOutcome);
+			//Assert.assertEquals(realTime, prediction.result, acceptedError);
+		}
 	}
 	
 	@Test

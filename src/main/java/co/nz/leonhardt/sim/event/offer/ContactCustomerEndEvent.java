@@ -9,7 +9,6 @@ import co.nz.leonhardt.sim.common.TransactionalBusinessEvent;
 import co.nz.leonhardt.sim.event.LoanApplication;
 import co.nz.leonhardt.sim.event.LoanApplicationModel;
 import co.nz.leonhardt.sim.event.Resource;
-import co.nz.leonhardt.sim.event.end.ActivatedEvent;
 import co.nz.leonhardt.sim.event.end.CancelledEvent;
 import desmoj.core.simulator.TimeSpan;
 
