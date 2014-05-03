@@ -24,7 +24,7 @@ import co.nz.leonhardt.bpe.reco.PredictionService;
 /**
  * Predictor for cycle time.
  * 
- * Uses a Logistic Regression model.
+ * Uses a Linear Regression model.
  * 
  * @author freddy
  *
