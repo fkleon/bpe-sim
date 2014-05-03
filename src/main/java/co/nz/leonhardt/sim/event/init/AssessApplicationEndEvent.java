@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
 import co.nz.leonhardt.sim.common.BpemEnabledModel;
-import co.nz.leonhardt.sim.common.BusinessEvent;
 import co.nz.leonhardt.sim.common.TransactionalBusinessEvent;
 import co.nz.leonhardt.sim.event.LoanApplication;
 import co.nz.leonhardt.sim.event.LoanApplicationModel;

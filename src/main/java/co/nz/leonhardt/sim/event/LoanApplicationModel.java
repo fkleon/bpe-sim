@@ -29,7 +29,6 @@ public class LoanApplicationModel extends BpemEnabledModel {
 	 *
 	 * See init() method for stream parameters.
 	 */
-	private ContDist applicationAmountRequested;
 	private List<Integer> amountSample;
 
 	/**
@@ -59,7 +58,12 @@ public class LoanApplicationModel extends BpemEnabledModel {
 	private ContDistExponential customerContactAttemptTime;
 	private ContDistExponential customerContactTime;
 
-	
+	private BoolDistBernoulli newOfferChance;
+	private ContDistNormal offerSentBackTime;	
+
+	private ContDistNormal applicationInitialValidationTime;	
+	private ContDistNormal applicationValidationTime;	
+
 	public Queue<LoanApplication> applicationQueue;
 	public Queue<Resource> idleResources;
 	
@@ -107,14 +111,6 @@ public class LoanApplicationModel extends BpemEnabledModel {
 		// Stream for application amounts
 		// Exponential Distribution with mean of 13753
 		double meanAmountRequested = 13573.3560785512;
-//		applicationAmountRequested = new ContDistWeibull(this,
-//				"AmountRequestedStream", meanAmountRequested, 2.0, true, true);
-//		applicationAmountRequested = new ContDistWeibull(this,
-//				"AmountRequestedStream", meanAmountRequested, 0.5, true, true);
-//		applicationAmountRequested = new ContDistExponential(this,
-//				"AmountRequestedStream", 13000.0, true, false);
-		applicationAmountRequested = new ContDistGamma(this,
-				"AmountRequestedStream", 2, 13000.0, true, false);
 		
 		// Stream for submission intervals
 		double meanArrivalTime = 17.23; // minutes
@@ -151,10 +147,22 @@ public class LoanApplicationModel extends BpemEnabledModel {
 		customerContactSuccessful = new BoolDistBernoulli(this,
 				"CustomerContactSuccessful", 0.60, true, false);
 		customerContactAttemptTime = new ContDistExponential(this,
-				"CustomerContactAttemptTimeStream", 20.0, true, false);
+				"CustomerContactAttemptTimeStream", 20.0, true, false); // HOURS
 		customerContactAttemptTime.setNonNegative(true);
 		customerContactTime = new ContDistExponential(this,
 				"CustomerContactTimeStream", 11.0, true, false);
+		
+		newOfferChance = new BoolDistBernoulli(this,
+				"NewOffer", 0.10, true, false);
+		offerSentBackTime = new ContDistNormal(this,
+				"OfferSentBackTimeStream", 2.0, 0.5, true, false); // HOURS
+		offerSentBackTime.setNonNegative(true);
+		applicationInitialValidationTime = new ContDistNormal(this,
+				"OfferSentBackTimeStream", 3.0, 2.5, true, false); // HOURS
+		applicationInitialValidationTime.setNonNegative(true);
+		applicationValidationTime = new ContDistNormal(this,
+				"OfferSentBackTimeStream", 51.0, 30.0, true, false);
+		applicationValidationTime.setNonNegative(true);
 		// Queue for submitted applications
 		applicationQueue = new Queue<LoanApplication>(this, "Application Queue", true, true);
 		
@@ -212,12 +220,29 @@ public class LoanApplicationModel extends BpemEnabledModel {
 	public TimeSpan getCustomerInitialContactTimeSpan() {
 		return new TimeSpan(customerInitialContactTime.sample(), TimeUnit.MINUTES);
 	}
+	
 	public TimeSpan getCustomerContactAttemptTimeSpan() {
 		return new TimeSpan(customerContactAttemptTime.sample(), TimeUnit.HOURS);
 	}
 	
 	public TimeSpan getCustomerContactTimeSpan() {
 		return new TimeSpan(customerContactTime.sample(), TimeUnit.MINUTES);
+	}
+	
+	public Boolean isNewOffer() {
+		return newOfferChance.sample();
+	}
+	
+	public TimeSpan getOfferSentBackTimeSpan() {
+		return new TimeSpan(offerSentBackTime.sample(), TimeUnit.HOURS);
+	}
+	
+	public TimeSpan getApplicationInitialValidationTimeSpan() {
+		return new TimeSpan(applicationInitialValidationTime.sample(), TimeUnit.MINUTES);
+	}
+	
+	public TimeSpan getApplicationValidationTimeSpan() {
+		return new TimeSpan(applicationValidationTime.sample(), TimeUnit.HOURS);
 	}
 	
 	private Resource john;

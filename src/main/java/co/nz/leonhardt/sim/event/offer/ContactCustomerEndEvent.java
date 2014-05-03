@@ -26,9 +26,14 @@ public class ContactCustomerEndEvent extends TransactionalBusinessEvent<LoanAppl
 		
 		if(model.isCustomerContactSuccessful()) {
 			sendTraceNote("customer contact successful..");
-			//TODO
-			ActivatedEvent event = new ActivatedEvent(model);
-			event.schedule(who, new TimeSpan(12.0, TimeUnit.MINUTES));
+			if(model.isNewOffer()) {
+				OfferCreatedEvent event = new OfferCreatedEvent(model);
+				event.schedule(who, new TimeSpan(5, TimeUnit.MINUTES));
+			} else {
+				//TODO
+				OfferSentBackEvent event = new OfferSentBackEvent(model);
+				event.schedule(who, new TimeSpan(12.0, TimeUnit.MINUTES));
+			}
 		} else {
 			sendTraceNote("customer contact unsuccessful..");
 			// contact 5 times, else cancel
