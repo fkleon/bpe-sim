@@ -87,8 +87,10 @@ public class RAMProcessLogStorage {
 		
 		// find outcome
 		String lastConceptName = lastEvent.getConceptName();
-		if(lastConceptName.equals("A_ACCEPTED")) {
+		if(lastConceptName.equals("A_ACTIVATED")) {
 			artificialEndEvent.setOutcome(Outcome.ACCEPTED);
+		} else if(lastConceptName.equals("A_CANCELLED")) {
+			artificialEndEvent.setOutcome(Outcome.CANCELLED);
 		} else {
 			artificialEndEvent.setOutcome(Outcome.DECLINED);
 		}

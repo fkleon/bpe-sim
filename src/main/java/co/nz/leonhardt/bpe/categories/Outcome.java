@@ -9,7 +9,7 @@ import jsat.classifiers.CategoricalData;
  *
  */
 public enum Outcome implements NominalValue {
-	ACCEPTED(0), DECLINED(1), UNDECIDED(2);
+	ACCEPTED(0), DECLINED(1), UNDECIDED(2), CANCELLED(3),;
 
 	private final int intValue;
 	

@@ -20,6 +20,8 @@ public class LoanApplication extends BusinessCase {
 
 	private final Long amountRequested;
 	
+	private Integer customerContactAttempts = 0;
+	
 	public LoanApplication(Model owner, final Long amountRequested, final Date dateSubmitted) {
 		super(owner, "LoanApplication", true, dateSubmitted);
 		
@@ -28,5 +30,13 @@ public class LoanApplication extends BusinessCase {
 
 	public Long getAmountRequested() {
 		return amountRequested;
+	}
+	
+	public Integer getCustomerContactAttempts() {
+		return customerContactAttempts;
+	}
+	
+	public void increaseCustomerContactAttempts() {
+		customerContactAttempts++;
 	}
 }

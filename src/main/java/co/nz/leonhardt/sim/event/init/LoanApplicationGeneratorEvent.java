@@ -1,8 +1,8 @@
-package co.nz.leonhardt.sim.event;
-
-import java.util.concurrent.TimeUnit;
+package co.nz.leonhardt.sim.event.init;
 
 import co.nz.leonhardt.bpe.logs.CaseLog;
+import co.nz.leonhardt.sim.event.LoanApplication;
+import co.nz.leonhardt.sim.event.LoanApplicationModel;
 import desmoj.core.simulator.ExternalEvent;
 import desmoj.core.simulator.TimeSpan;
 
@@ -13,14 +13,14 @@ import desmoj.core.simulator.TimeSpan;
  * 
  * It will create a new application, schedule its submission at the IT system
  * (i.e. create and schedule an submission event) and then schedule itself for
- * the point in time when the next truck appication is due.
+ * the point in time when the next loan application is due.
  */
 public class LoanApplicationGeneratorEvent extends ExternalEvent {
 
 	private LoanApplicationModel model; 
 	
 	public LoanApplicationGeneratorEvent(LoanApplicationModel owner) {
-		super(owner, "LoanApplication Generator", true);
+		super(owner, "Loan Application Generator", true);
 		
 		this.model = owner;
 	}
@@ -40,13 +40,13 @@ public class LoanApplicationGeneratorEvent extends ExternalEvent {
 		LoanApplication application = new LoanApplication(model, amountRequested, presentTime().getTimeAsDate());
 		fireCaseLog(application);
 		// create a new application submission event
-		LoanApplicationSubmissionEvent applicationSubmission = new LoanApplicationSubmissionEvent(model);
+		SubmissionEvent applicationSubmission = new SubmissionEvent(model);
 		
 		// and schedule it for the current point in time
 		applicationSubmission.schedule(application, new TimeSpan(0));
 		
 		// schedule this application generator again for the next truck arrival time
-		schedule(new TimeSpan(model.getApplicationSubmissionTime(), TimeUnit.MINUTES));
+		schedule(model.getApplicationSubmissionTimeSpan());
 		// from inside to outside...
 		// draw a new inter-arrival time value
 		// wrap it in a TimeSpan object

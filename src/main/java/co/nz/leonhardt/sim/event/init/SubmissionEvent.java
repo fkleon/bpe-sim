@@ -1,9 +1,13 @@
-package co.nz.leonhardt.sim.event;
+package co.nz.leonhardt.sim.event.init;
 
 import org.deckfour.xes.extension.std.XLifecycleExtension.StandardModel;
 
 import co.nz.leonhardt.sim.common.BpemEnabledModel;
 import co.nz.leonhardt.sim.common.BusinessEvent;
+import co.nz.leonhardt.sim.common.SimpleBusinessEvent;
+import co.nz.leonhardt.sim.event.LoanApplication;
+import co.nz.leonhardt.sim.event.LoanApplicationModel;
+import co.nz.leonhardt.sim.event.end.DeclinedEvent;
 import desmoj.core.simulator.Event;
 
 /**
@@ -12,13 +16,10 @@ import desmoj.core.simulator.Event;
  * @author freddy
  *
  */
-public class LoanApplicationSubmissionEvent extends BusinessEvent<LoanApplication> {
+public class SubmissionEvent extends SimpleBusinessEvent<LoanApplication> {
 
-	/** The resource associated with this event */
-	protected final String resource;
-	
-	public LoanApplicationSubmissionEvent(BpemEnabledModel owner) {
-		super(owner, "LoanApplicationSubmission", true);
+	public SubmissionEvent(BpemEnabledModel owner) {
+		super(owner, "Submission", true);
 		
 		this.resource = "WebForm";
 	}
@@ -34,16 +35,12 @@ public class LoanApplicationSubmissionEvent extends BusinessEvent<LoanApplicatio
 		model.applicationQueue.insert(who);
 		
 		Event<LoanApplication> event;
+		
 		// check if application is declined
 		if (model.isApplicationDeclinedImmediately()) {
-			event = new LoanApplicationDeclinedEvent(model);
-			//event.schedule(who, model.getApplicationPreCheckTimeSpan());
-			
-			//fireEventLog(who, "A_DECLINED", LifecycleTransition.COMPLETE, "LoanChecker");
-			//model.applicationQueue.remove(who);
+			event = new DeclinedEvent(model);
 		} else {
-			event = new LoanApplicationPreApprovedEvent(model);
-			//fireEventLog(who, "A_PREACCEPTED", LifecycleTransition.COMPLETE, "LoanChecker");
+			event = new PreApprovedEvent(model);
 		}
 		
 		event.schedule(who, model.getApplicationPreCheckTimeSpan());
