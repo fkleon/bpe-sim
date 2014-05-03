@@ -1,7 +1,6 @@
 package co.nz.leonhardt.sim;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +13,11 @@ import java.util.concurrent.TimeUnit;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.out.XSerializer;
 import org.deckfour.xes.out.XesXmlGZIPSerializer;
-import org.deckfour.xes.out.XesXmlSerializer;
 
 import co.nz.leonhardt.bpe.BPEM;
 import co.nz.leonhardt.bpe.BPEMFacade;
-import co.nz.leonhardt.bpe.logs.RAMProcessLogStorage;
 import co.nz.leonhardt.sim.event.LoanApplicationModel;
 import desmoj.core.simulator.Experiment;
-import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
 
 /**

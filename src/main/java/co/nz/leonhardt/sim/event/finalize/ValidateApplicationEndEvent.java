@@ -10,6 +10,7 @@ import co.nz.leonhardt.sim.event.LoanApplication;
 import co.nz.leonhardt.sim.event.LoanApplicationModel;
 import co.nz.leonhardt.sim.event.Resource;
 import co.nz.leonhardt.sim.event.end.ActivatedEvent;
+import co.nz.leonhardt.sim.event.end.DeclinedEvent;
 import desmoj.core.simulator.TimeSpan;
 
 public class ValidateApplicationEndEvent extends TransactionalBusinessEvent<LoanApplication, Resource> {
@@ -23,8 +24,13 @@ public class ValidateApplicationEndEvent extends TransactionalBusinessEvent<Loan
 		LoanApplicationModel model = (LoanApplicationModel) getModel();
 		fireEventLog(who1, "W_Validate Application", StandardModel.COMPLETE, who2);
 		
-		ActivatedEvent event = new ActivatedEvent(model);
-		event.schedule(who1, new TimeSpan(12.0, TimeUnit.MINUTES));
+		if(model.isApplicationDeclinedAfterAssessment()) {
+			DeclinedEvent event = new DeclinedEvent(model);
+			event.schedule(who1, new TimeSpan(15.0, TimeUnit.SECONDS));
+		} else {
+			ActivatedEvent event = new ActivatedEvent(model);
+			event.schedule(who1, new TimeSpan(12.0, TimeUnit.MINUTES));
+		}
 	}
 
 }
