@@ -26,7 +26,7 @@ public class Digraph<V> {
 	 */
 	public static class Edge<V> {
 		private V vertex;
-		private int cost;
+		private double cost;
 
 		/**
 		 * Creates a new edge with given vertex and cost.
@@ -34,7 +34,7 @@ public class Digraph<V> {
 		 * @param v
 		 * @param c
 		 */
-		public Edge(V v, int c) {
+		public Edge(V v, double c) {
 			vertex = v;
 			cost = c;
 		}
@@ -53,7 +53,7 @@ public class Digraph<V> {
 			return vertex;
 		}
 
-		public int getCost() {
+		public double getCost() {
 			return cost;
 		}
 
@@ -96,7 +96,7 @@ public class Digraph<V> {
 	 * Add an edge to the graph; if either vertex does not exist, it's added.
 	 * This implementation allows the creation of multi-edges and self-loops.
 	 */
-	public void add(V from, V to, int cost) {
+	public void add(V from, V to, double cost) {
 		neighbours.get(from).add(new Edge<V>(to, cost));
 	}
 	
@@ -137,7 +137,7 @@ public class Digraph<V> {
 		return false;
 	}
 
-	public int getCost(V from, V to) {
+	public double getCost(V from, V to) {
 		for (Edge<V> e : neighbours.get(from)) {
 			if (e.vertex.equals(to))
 				return e.cost;
