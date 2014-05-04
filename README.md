@@ -5,7 +5,10 @@ An integrated business process monitoring and recommendation engine fed by a sim
 
 ### Structure
 
-TODO
+The project is internally structured in its three main components:
+- Business Process Execution and Monitoring
+- Business Process Simulation
+- Recommendation
 
 ### Developers
 This project uses Maven. Dependencies can be found in the [pom.xml](pom.xml).
@@ -20,3 +23,4 @@ Currently there are some more dependencies which have not been published as mave
 [desmoj]: http://desmoj.sourceforge.net/home.html
 [java-statistical-analysis-tool]: https://code.google.com/p/java-statistical-analysis-tool/
 [java-ml]: http://java-ml.sourceforge.net/
+[weka]: http://www.cs.waikato.ac.nz/~ml/weka/

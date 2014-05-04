@@ -1,10 +1,8 @@
 package co.nz.leonhardt.bpe.processing;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -145,30 +143,9 @@ public class WorkTimeExtractor extends NumericalMetricExtractor<Long> {
 		String eName = cExt.extractName(elem);
 		return eName == null ? "none" : eName;
 	}
-
-	@Deprecated
-	private List<XEvent> extractEventsByLifecycle(XTrace trace, StandardModel lifecycle) {
-		List<XEvent> events = new ArrayList<>();
-		
-		XLifecycleExtension lcExt = XLifecycleExtension.instance();
-		String lcString = lifecycle.toString().toLowerCase();
-		
-		for (XEvent event: trace) {
-			String transition = lcExt.extractTransition(event);
-			
-			if(transition != null && lcString.equals(transition.toLowerCase())) {
-				events.add(event);
-			}
-		}
-		
-		return events;
-	}
-	
 	
 	@Override
 	public String getMetricName() {
 		return "WorkTime";
 	}
-
-	
 }

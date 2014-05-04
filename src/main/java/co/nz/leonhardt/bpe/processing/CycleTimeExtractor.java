@@ -1,13 +1,11 @@
 package co.nz.leonhardt.bpe.processing;
 
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.deckfour.xes.extension.std.XTimeExtension;
 import org.deckfour.xes.model.XTrace;
 
-import co.nz.leonhardt.bpe.logs.EventLog;
 import co.nz.leonhardt.bpe.util.TimeUtil;
 
 /**
@@ -28,14 +26,6 @@ public class CycleTimeExtractor extends NumericalMetricExtractor<Long> {
 	 */
 	public CycleTimeExtractor(TimeUnit timeUnit) {
 		this.timeUnit = timeUnit;
-	}
-	
-	@Deprecated
-	private Long extractMetric(List<EventLog> eLogs) {
-		int numLogs = eLogs.size();
-		Date startDate = eLogs.get(0).getTimestamp();
-		Date endDate = eLogs.get(numLogs-1).getTimestamp();
-		return TimeUtil.calcTimeDiff(startDate, endDate, this.timeUnit);
 	}
 	
 	@Override
