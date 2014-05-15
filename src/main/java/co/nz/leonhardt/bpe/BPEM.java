@@ -1,5 +1,6 @@
 package co.nz.leonhardt.bpe;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.deckfour.xes.model.XLog;
@@ -7,6 +8,7 @@ import org.deckfour.xes.model.XLog;
 import co.nz.leonhardt.bpe.logs.CaseLog;
 import co.nz.leonhardt.bpe.logs.EventLog;
 import co.nz.leonhardt.bpe.stat.EventStatistics;
+import co.nz.leonhardt.reco.PredictionResult;
 
 /**
  * The Business Process Execution and Monitoring environment.
@@ -44,7 +46,7 @@ public interface BPEM {
 	 * 
 	 * @return
 	 */
-	public XLog exportLog();
+	public XLog exportFullLog();
 	
 	/**
 	 * Exports the KPIs collected so far.
@@ -60,4 +62,18 @@ public interface BPEM {
 	 * @param activityName
 	 */
 	public EventStatistics getStatistics(String activityName);
+
+	/**
+	 * Exports the prediction timeline.
+	 * 
+	 * @return
+	 */
+	public Map<String, Collection<PredictionResult<?>>> exportPredictionTimeline();
+	
+	/**
+	 * Exports the underlying process storage as XLog.
+	 * 
+	 * @return only completes instance
+	 */
+	public XLog exportCompletedLog();
 }

@@ -54,7 +54,11 @@ public class WekaClassificationFactory extends WekaFactory {
 			CategoricalMetricExtractor<? extends NominalValue> cEx = categoricalMetrics.get(i);
 			NominalValue cVal = cEx.extractMetric(trace);
 			Attribute cAttr = nomAttrs.get(i);
-			traceData.setValue(cAttr, cVal.toString());
+			if(cVal == null) {
+				traceData.setMissing(cAttr);
+			} else {
+				traceData.setValue(cAttr, cVal.toString());
+			}
 		}
 		
 //		System.out.println("INSTANCE:");

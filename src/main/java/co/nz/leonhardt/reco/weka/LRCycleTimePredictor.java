@@ -12,6 +12,7 @@ import weka.classifiers.functions.LinearRegression;
 import weka.core.Instance;
 import weka.core.Instances;
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
+import co.nz.leonhardt.bpe.processing.CostEstimationExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.LoopLengthExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
@@ -46,7 +47,7 @@ public class LRCycleTimePredictor implements PredictionService<PredictionResult<
 						new OutcomeExtractor())
 				.withNumerics(
 						new TraceLengthExtractor(),
-						//new RandomMetricExtractor(),
+						new CostEstimationExtractor(),
 						new AmountRequestedExtractor(),
 						new LoopLengthExtractor(),
 						new WorkTimeExtractor(TimeUnit.MINUTES));

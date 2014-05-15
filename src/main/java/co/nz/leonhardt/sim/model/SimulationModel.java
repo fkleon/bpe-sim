@@ -69,6 +69,8 @@ public class SimulationModel extends BpemEnabledModel {
 	public Queue<LoanApplication> applicationQueue;
 	public Queue<Resource> idleResources;
 	
+	public ProcessModel processModel;
+	
 	/**
 	 * Creates a new loan application model with the given
 	 * BPEM.
@@ -160,10 +162,10 @@ public class SimulationModel extends BpemEnabledModel {
 				"OfferSentBackTimeStream", 2.0, 0.5, true, false); // HOURS
 		offerSentBackTime.setNonNegative(true);
 		applicationInitialValidationTime = new ContDistNormal(this,
-				"OfferSentBackTimeStream", 3.0, 2.5, true, false); // HOURS
+				"OfferInitialvalidationTimeStream", 3.0, 2.5, true, false); // HOURS
 		applicationInitialValidationTime.setNonNegative(true);
 		applicationValidationTime = new ContDistNormal(this,
-				"OfferSentBackTimeStream", 51.0, 30.0, true, false);
+				"OfferValidationTimeStream", 51.0, 30.0, true, false);
 		applicationValidationTime.setNonNegative(true);
 		// Queue for submitted applications
 		applicationQueue = new Queue<LoanApplication>(this, "Application Queue", true, true);
