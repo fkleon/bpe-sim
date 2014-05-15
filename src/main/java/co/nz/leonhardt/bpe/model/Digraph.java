@@ -13,9 +13,10 @@ import com.google.common.collect.Multimap;
  * @author Giampaolo Trapasso
  * @author freddy
  *
- * @param <V>
+ * @param <V> type of the vertex
+ * @apram <A> type of the edge attribute
  */
-public class Digraph<V> {
+public class Digraph<V, A> {
 
 	/**
 	 * An edge.
@@ -24,19 +25,19 @@ public class Digraph<V> {
 	 *
 	 * @param <V>
 	 */
-	public static class Edge<V> {
+	public static class Edge<V, A> {
 		private V vertex;
-		private double cost;
+		private A attribute;
 
 		/**
-		 * Creates a new edge with given vertex and cost.
+		 * Creates a new edge with given vertex and attribute.
 		 * 
 		 * @param v
 		 * @param c
 		 */
-		public Edge(V v, double c) {
+		public Edge(V v, A c) {
 			vertex = v;
-			cost = c;
+			attribute = c;
 		}
 		
 		/**
@@ -46,20 +47,20 @@ public class Digraph<V> {
 		 */
 		public Edge(V v) {
 			vertex = v;
-			cost = 0;
+			attribute = null;
 		}
 
 		public V getVertex() {
 			return vertex;
 		}
 
-		public double getCost() {
-			return cost;
+		public A getAttribute() {
+			return attribute;
 		}
 
 		@Override
 		public String toString() {
-			return "Edge [vertex=" + vertex + ", cost=" + cost + "]";
+			return "Edge [vertex=" + vertex + ", attribute=" + attribute + "]";
 		}
 
 	}
@@ -67,9 +68,7 @@ public class Digraph<V> {
 	/**
 	 * A Multimap is used to map each vertex to its list of adjacent vertices.
 	 */
-	private Multimap<V, Edge<V>> neighbours = ArrayListMultimap.create();
-
-	//private int nr_edges;
+	private Multimap<V, Edge<V, A>> neighbours = ArrayListMultimap.create();
 
 	/**
 	 * String representation of graph.
@@ -86,7 +85,7 @@ public class Digraph<V> {
 	}
 
 	/**
-	 * True iff graph contains vertex.
+	 * True if graph contains vertex.
 	 */
 	public boolean contains(V vertex) {
 		return neighbours.containsKey(vertex);
@@ -96,12 +95,12 @@ public class Digraph<V> {
 	 * Add an edge to the graph; if either vertex does not exist, it's added.
 	 * This implementation allows the creation of multi-edges and self-loops.
 	 */
-	public void add(V from, V to, double cost) {
-		neighbours.get(from).add(new Edge<V>(to, cost));
+	public void add(V from, V to, A attribute) {
+		neighbours.get(from).add(new Edge<V,A>(to, attribute));
 	}
 	
 	public void add(V from, V to) {
-		neighbours.get(from).add(new Edge<V>(to));
+		neighbours.get(from).add(new Edge<V,A>(to));
 	}
 
 	public int outDegree(V vertex) {
@@ -114,7 +113,7 @@ public class Digraph<V> {
 
 	public List<V> outboundNeighbors(V vertex) {
 		List<V> list = new ArrayList<V>();
-		for (Edge<V> e : neighbours.get(vertex))
+		for (Edge<V,A> e : neighbours.get(vertex))
 			list.add(e.vertex);
 		return list;
 	}
@@ -122,7 +121,7 @@ public class Digraph<V> {
 	public List<V> inboundNeighbors(V inboundVertex) {
 		List<V> inList = new ArrayList<V>();
 		for (V to : neighbours.keySet()) {
-			for (Edge<V> e : neighbours.get(to))
+			for (Edge<V,A> e : neighbours.get(to))
 				if (e.vertex.equals(inboundVertex))
 					inList.add(to);
 		}
@@ -130,25 +129,25 @@ public class Digraph<V> {
 	}
 
 	public boolean isEdge(V from, V to) {
-		for (Edge<V> e : neighbours.get(from)) {
+		for (Edge<V,A> e : neighbours.get(from)) {
 			if (e.vertex.equals(to))
 				return true;
 		}
 		return false;
 	}
 
-	public double getCost(V from, V to) {
-		for (Edge<V> e : neighbours.get(from)) {
+	public A getAttribute(V from, V to) {
+		for (Edge<V,A> e : neighbours.get(from)) {
 			if (e.vertex.equals(to))
-				return e.cost;
+				return e.attribute;
 		}
-		return -1;
+		return null;
 	}
 
 	// Test
 	public static void main(String[] args) throws IOException {
 
-		Digraph<Integer> graph = new Digraph<Integer>();
+		Digraph<Integer, Integer> graph = new Digraph<Integer, Integer>();
 
 		graph.add(0, 1, 1);
 		graph.add(1, 2, 2);
@@ -174,7 +173,7 @@ public class Digraph<V> {
 		System.out.println("(1,3)? "
 				+ (graph.isEdge(1, 3) ? "It's an edge" : "It's not an edge"));
 
-		System.out.println("Cost for (1,3)? " + graph.getCost(1, 3));
+		System.out.println("Cost for (1,3)? " + graph.getAttribute(1, 3));
 
 	}
 }

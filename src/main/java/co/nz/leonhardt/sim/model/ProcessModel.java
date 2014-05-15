@@ -3,10 +3,38 @@ package co.nz.leonhardt.sim.model;
 import java.util.List;
 
 import co.nz.leonhardt.bpe.model.Digraph;
+import desmoj.core.dist.BoolDistBernoulli;
+import desmoj.core.dist.ContDist;
+import desmoj.core.dist.Distribution;
+import desmoj.core.simulator.Model;
 
 public class ProcessModel {
+	
+	public class TransitionProperty {
+		public final BoolDistBernoulli probability;
+		public final ContDist length;
+		public final ContDist delay;
+		
+		public TransitionProperty(BoolDistBernoulli probability, ContDist delay, ContDist length) {
+			this.probability = probability;
+			this.delay = delay;
+			this.length = length;
+		}
+		
+		public boolean getProbability() {
+			return probability.sample();
+		}
+		
+		public Long delay() {
+			return ((Number)delay.sampleObject()).longValue();
+		}
+		
+		public Long length() {
+			return ((Number)length.sampleObject()).longValue();
+		}
+	}
 
-	private Digraph<Activity> directedGraph;
+	private Digraph<Activity, Double> directedGraph;
 	
 	/**
 	 * Creates a new loan application process model.
