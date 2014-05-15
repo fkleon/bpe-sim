@@ -9,7 +9,7 @@ import jsat.classifiers.CategoricalData;
  *
  */
 public enum Outcome implements NominalValue {
-	ACCEPTED(0), DECLINED(1), UNDECIDED(2), CANCELLED(3),;
+	ACCEPTED(0), DECLINED(1), CANCELLED(2);
 
 	private final int intValue;
 	
@@ -31,8 +31,6 @@ public enum Outcome implements NominalValue {
 				return DECLINED;
 			case "CANCELLED":
 				return CANCELLED;
-			case "UNDECIDED":
-				return UNDECIDED;
 			default:
 				return null;
 		}
@@ -51,8 +49,6 @@ public enum Outcome implements NominalValue {
 			case 1:
 				return DECLINED;
 			case 2:
-				return UNDECIDED;
-			case 3:
 				return CANCELLED;
 			default:
 				throw new IllegalArgumentException("No such category.");

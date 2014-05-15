@@ -18,7 +18,7 @@ public class CostEstimationExtractor extends NumericalMetricExtractor<Double> {
 	private OutcomeExtractor oe;
 	
 	public CostEstimationExtractor() {
-		wte = new WorkTimeExtractor(TimeUnit.MINUTES);
+		wte = new WorkTimeExtractor(TimeUnit.HOURS);
 		oe = new OutcomeExtractor();
 	}
 	
@@ -29,11 +29,15 @@ public class CostEstimationExtractor extends NumericalMetricExtractor<Double> {
 		
 		Double estimatedCost = workTime.doubleValue();
 		
+		if(outcome == null) {
+			return estimatedCost; // no penalty, still running
+		}
+		
 		switch(outcome) {
-			case ACCEPTED: return estimatedCost * -1.0; // profit
-			case DECLINED: return estimatedCost * 2.0; // penalty
-			case CANCELLED: return estimatedCost * 1.5; // penalty
-			case UNDECIDED: return workTime.doubleValue(); // no penalty..
+			case ACCEPTED: return estimatedCost * 0.5; // profit
+			case DECLINED: return estimatedCost * 1.5; // penalty
+			case CANCELLED: return estimatedCost * 1.2; // penalty
+			//case UNDECIDED: return workTime.doubleValue(); // no penalty..
 		}
 			
 		return estimatedCost;

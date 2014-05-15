@@ -20,8 +20,12 @@ public class OutcomeExtractor implements
 		// look at the last event
 		XEvent lastEvent = trace.get(trace.size()-1);
 		XAttribute attr = lastEvent.getAttributes().get("OUTCOME");
-		String outcome = attr == null ? "undecided" : attr.toString();
-		return Outcome.fromString(outcome);
+		
+		//String outcome = attr == null ? "undecided" : attr.toString();
+		
+		Outcome outcome = attr == null ? null : Outcome.fromString(attr.toString());
+		return outcome;
+		//return Outcome.fromString(outcome);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import co.nz.leonhardt.bpe.categories.Outcome;
 import co.nz.leonhardt.bpe.processing.AmountRequestedExtractor;
+import co.nz.leonhardt.bpe.processing.CostEstimationExtractor;
 import co.nz.leonhardt.bpe.processing.CycleTimeExtractor;
 import co.nz.leonhardt.bpe.processing.LoopLengthExtractor;
 import co.nz.leonhardt.bpe.processing.OutcomeExtractor;
@@ -50,6 +51,7 @@ public class DTOutcomeClassifier implements PredictionService<ClassificationResu
 						new OutcomeExtractor())
 				.withNumerics(
 						new TraceLengthExtractor(),
+						//new CostEstimationExtractor(),
 						new AmountRequestedExtractor(),
 						new LoopLengthExtractor(),
 						new CycleTimeExtractor(TimeUnit.MINUTES),
@@ -60,10 +62,10 @@ public class DTOutcomeClassifier implements PredictionService<ClassificationResu
 	public void learn(XLog log) throws Exception {
 		Instances dataSet = dataFactory.extractDataSet(log);
 		
-		ArffSaver saver = new ArffSaver();
-		saver.setInstances(dataSet);
-		saver.setFile(new File("/home/freddy/simLog.arff"));
-		saver.writeBatch();
+//		ArffSaver saver = new ArffSaver();
+//		saver.setInstances(dataSet);
+//		saver.setFile(new File("/home/freddy/simLogClean.arff"));
+//		saver.writeBatch();
 		
 		classifier.buildClassifier(dataSet);
 	}
